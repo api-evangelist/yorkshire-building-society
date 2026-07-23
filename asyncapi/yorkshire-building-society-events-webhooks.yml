@@ -1,0 +1,30 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml
+spec_type: Webhooks
+note: >-
+  YBS implements the OBIE Read/Write Event Notification model. An onboarded TPP
+  manages subscriptions via the Event Subscriptions API and receives event
+  notifications (OBEventNotification2, a signed JWT / security event token) for
+  changes to Open Banking resources - most notably consent revocation. No
+  AsyncAPI document is published by YBS; this captures the webhook/event surface
+  it does operate. Not fabricated - the subscription operations are real
+  OpenAPI operations.
+delivery:
+  models:
+  - aggregated-polling
+  - real-time-push
+  format: Signed JWT (OBEventNotification2 security event token, PS256).
+subscription_operations:
+- {operationId: CreateEventSubscriptions, method: POST, path: /event-subscriptions}
+- {operationId: GetEventSubscriptions, method: GET, path: /event-subscriptions}
+- {operationId: ChangeEventSubscriptionsEventSubscriptionId, method: PUT, path: '/event-subscriptions/{EventSubscriptionId}'}
+- {operationId: DeleteEventSubscriptionsEventSubscriptionId, method: DELETE, path: '/event-subscriptions/{EventSubscriptionId}'}
+events:
+- type: 'urn:uk:org:openbanking:events:consent-authorization-revoked'
+  description: A PSU or ASPSP has revoked a previously authorised consent.
+- type: 'urn:uk:org:openbanking:events:resource-update'
+  description: An Open Banking resource the TPP is subscribed to has changed state.
+security:
+  transport: mutual-TLS
+  signature: PS256 detached/embedded JWS on the event notification token.

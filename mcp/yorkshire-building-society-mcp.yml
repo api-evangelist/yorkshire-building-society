@@ -1,0 +1,246 @@
+generated: '2026-07-23'
+method: derived
+status: candidate
+note: No official YBS-hosted MCP server was found. This is a CANDIDATE tool surface derived one-tool-per-OpenAPI-operation
+  across the AIS/PIS/CBPII/Events specs, so agents can discover the real operation surface. Every tool
+  binds to a verbatim operationId; inputs are that operation's OpenAPI parameters + requestBody. All calls
+  require the OBIE FAPI security profile (OAuth2 + mutual-TLS).
+server:
+  name: yorkshire-building-society
+  transport: http
+  url: null
+tools:
+- name: create_account_access_consents
+  description: Create Account Access Consents
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#CreateAccountAccessConsents
+- name: get_account_access_consents_consent_id
+  description: Get Account Access Consents
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountAccessConsentsConsentId
+- name: delete_account_access_consents_consent_id
+  description: Delete Account Access Consents
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#DeleteAccountAccessConsentsConsentId
+- name: get_accounts
+  description: Get Accounts
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccounts
+- name: get_accounts_account_id
+  description: Get Accounts
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountId
+- name: get_accounts_account_id_balances
+  description: Get Balances
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdBalances
+- name: get_accounts_account_id_beneficiaries
+  description: Get Beneficiaries
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdBeneficiaries
+- name: get_accounts_account_id_direct_debits
+  description: Get Direct Debits
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdDirectDebits
+- name: get_accounts_account_id_offers
+  description: Get Offers
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdOffers
+- name: get_accounts_account_id_parties
+  description: Get Parties
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdParties
+- name: get_accounts_account_id_party
+  description: Get Parties
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdParty
+- name: get_accounts_account_id_product
+  description: Get Products
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdProduct
+- name: get_accounts_account_id_scheduled_payments
+  description: Get Scheduled Payments
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdScheduledPayments
+- name: get_accounts_account_id_standing_orders
+  description: Get Standing Orders
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdStandingOrders
+- name: get_accounts_account_id_statements
+  description: Get Statements
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdStatements
+- name: get_accounts_account_id_statements_statement_id
+  description: Get Statements
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdStatementsStatementId
+- name: get_accounts_account_id_statements_statement_id_file
+  description: Get Statements
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdStatementsStatementIdFile
+- name: get_accounts_account_id_statements_statement_id_transactions
+  description: Get Transactions
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdStatementsStatementIdTransactions
+- name: get_accounts_account_id_transactions
+  description: Get Transactions
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetAccountsAccountIdTransactions
+- name: get_balances
+  description: Get Balances
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetBalances
+- name: get_beneficiaries
+  description: Get Beneficiaries
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetBeneficiaries
+- name: get_direct_debits
+  description: Get Direct Debits
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetDirectDebits
+- name: get_offers
+  description: Get Offers
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetOffers
+- name: get_party
+  description: Get Parties
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetParty
+- name: get_products
+  description: Get Products
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetProducts
+- name: get_scheduled_payments
+  description: Get Scheduled Payments
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetScheduledPayments
+- name: get_standing_orders
+  description: Get Standing Orders
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetStandingOrders
+- name: get_statements
+  description: Get Statements
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetStatements
+- name: get_transactions
+  description: Get Transactions
+  source_operation: openapi/yorkshire-building-society-account-information-api-openapi.yaml#GetTransactions
+- name: create_domestic_payment_consents
+  description: Create Domestic Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateDomesticPaymentConsents
+- name: get_domestic_payment_consents_consent_id
+  description: Get Domestic Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticPaymentConsentsConsentId
+- name: get_domestic_payment_consents_consent_id_funds_confirmation
+  description: Get Domestic Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticPaymentConsentsConsentIdFundsConfirmation
+- name: create_domestic_payments
+  description: Create Domestic Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateDomesticPayments
+- name: get_domestic_payments_domestic_payment_id
+  description: Get Domestic Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticPaymentsDomesticPaymentId
+- name: get_domestic_payments_domestic_payment_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticPaymentsDomesticPaymentIdPaymentDetails
+- name: create_domestic_scheduled_payment_consents
+  description: Create Domestic Scheduled Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateDomesticScheduledPaymentConsents
+- name: get_domestic_scheduled_payment_consents_consent_id
+  description: Get Domestic Scheduled Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticScheduledPaymentConsentsConsentId
+- name: create_domestic_scheduled_payments
+  description: Create Domestic Scheduled Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateDomesticScheduledPayments
+- name: get_domestic_scheduled_payments_domestic_scheduled_payment_id
+  description: Get Domestic Scheduled Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticScheduledPaymentsDomesticScheduledPaymentId
+- name: get_domestic_scheduled_payments_domestic_scheduled_payment_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticScheduledPaymentsDomesticScheduledPaymentIdPaymentDetails
+- name: create_domestic_standing_order_consents
+  description: Create Domestic Standing Order Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateDomesticStandingOrderConsents
+- name: get_domestic_standing_order_consents_consent_id
+  description: Get Domestic Standing Order Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticStandingOrderConsentsConsentId
+- name: create_domestic_standing_orders
+  description: Create Domestic Standing Orders
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateDomesticStandingOrders
+- name: get_domestic_standing_orders_domestic_standing_order_id
+  description: Get Domestic Standing Orders
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticStandingOrdersDomesticStandingOrderId
+- name: get_domestic_standing_orders_domestic_standing_order_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetDomesticStandingOrdersDomesticStandingOrderIdPaymentDetails
+- name: create_file_payment_consents
+  description: Create File Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateFilePaymentConsents
+- name: get_file_payment_consents_consent_id
+  description: Get File Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetFilePaymentConsentsConsentId
+- name: create_file_payment_consents_consent_id_file
+  description: Create File Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateFilePaymentConsentsConsentIdFile
+- name: get_file_payment_consents_consent_id_file
+  description: Get File Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetFilePaymentConsentsConsentIdFile
+- name: create_file_payments
+  description: Create File Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateFilePayments
+- name: get_file_payments_file_payment_id
+  description: Get File Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetFilePaymentsFilePaymentId
+- name: get_file_payments_file_payment_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetFilePaymentsFilePaymentIdPaymentDetails
+- name: get_file_payments_file_payment_id_report_file
+  description: Get File Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetFilePaymentsFilePaymentIdReportFile
+- name: create_international_payment_consents
+  description: Create International Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateInternationalPaymentConsents
+- name: get_international_payment_consents_consent_id
+  description: Get International Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalPaymentConsentsConsentId
+- name: get_international_payment_consents_consent_id_funds_confirmation
+  description: Get International Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalPaymentConsentsConsentIdFundsConfirmation
+- name: create_international_payments
+  description: Create International Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateInternationalPayments
+- name: get_international_payments_international_payment_id
+  description: Get International Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalPaymentsInternationalPaymentId
+- name: get_international_payments_international_payment_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalPaymentsInternationalPaymentIdPaymentDetails
+- name: create_international_scheduled_payment_consents
+  description: Create International Scheduled Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateInternationalScheduledPaymentConsents
+- name: get_international_scheduled_payment_consents_consent_id
+  description: Get International Scheduled Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalScheduledPaymentConsentsConsentId
+- name: get_international_scheduled_payment_consents_consent_id_funds_confirmation
+  description: Get International Scheduled Payment Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalScheduledPaymentConsentsConsentIdFundsConfirmation
+- name: create_international_scheduled_payments
+  description: Create International Scheduled Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateInternationalScheduledPayments
+- name: get_international_scheduled_payments_international_scheduled_payment_id
+  description: Get International Scheduled Payments
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalScheduledPaymentsInternationalScheduledPaymentId
+- name: get_international_scheduled_payments_international_scheduled_payment_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalScheduledPaymentsInternationalScheduledPaymentIdPaymentDetails
+- name: create_international_standing_order_consents
+  description: Create International Standing Order Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateInternationalStandingOrderConsents
+- name: get_international_standing_order_consents_consent_id
+  description: Get International Standing Order Consents
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalStandingOrderConsentsConsentId
+- name: create_international_standing_orders
+  description: Create International Standing Orders
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#CreateInternationalStandingOrders
+- name: get_international_standing_orders_international_standing_order_payment_id
+  description: Get International Standing Orders
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalStandingOrdersInternationalStandingOrderPaymentId
+- name: get_international_standing_orders_international_standing_order_payment_id_payment_details
+  description: Get Payment Details
+  source_operation: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml#GetInternationalStandingOrdersInternationalStandingOrderPaymentIdPaymentDetails
+- name: create_funds_confirmation_consents
+  description: Create Funds Confirmation Consent
+  source_operation: openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml#CreateFundsConfirmationConsents
+- name: get_funds_confirmation_consents_consent_id
+  description: Get Funds Confirmation Consent
+  source_operation: openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml#GetFundsConfirmationConsentsConsentId
+- name: delete_funds_confirmation_consents_consent_id
+  description: Delete Funds Confirmation Consent
+  source_operation: openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml#DeleteFundsConfirmationConsentsConsentId
+- name: create_funds_confirmations
+  description: Create Funds Confirmation
+  source_operation: openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml#CreateFundsConfirmations
+- name: create_event_subscriptions
+  description: Create Event Subscription
+  source_operation: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml#CreateEventSubscriptions
+- name: get_event_subscriptions
+  description: Get Event Subscription
+  source_operation: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml#GetEventSubscriptions
+- name: change_event_subscriptions_event_subscription_id
+  description: Change Event Subscription
+  source_operation: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml#ChangeEventSubscriptionsEventSubscriptionId
+- name: delete_event_subscriptions_event_subscription_id
+  description: Delete Event Subscription
+  source_operation: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml#DeleteEventSubscriptionsEventSubscriptionId

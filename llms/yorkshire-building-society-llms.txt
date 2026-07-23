@@ -1,0 +1,35 @@
+# Yorkshire Building Society Open Banking APIs
+
+> Yorkshire Building Society (YBS) is a UK member-owned mutual building society and an FCA-authorised ASPSP participating voluntarily in the UK Open Banking / PSD2 ecosystem. Its developer portal documents the OBIE Read/Write Data API family (v3.1.2) for the Yorkshire Building Society / Chelsea Building Society (CBS) and Chelsea brands: Account Information (AIS), Payment Initiation (PIS), Confirmation of Funds (CBPII), Event Subscriptions, Dynamic Client Registration, and token issuance. All surfaces are FAPI-secured (OAuth2/OIDC authorization-code + client-credentials, mutual-TLS certificate-bound tokens, PS256-signed request objects and detached JWS, PSD2 strong customer authentication) and available to FCA-authorised TPPs holding OBIE/eIDAS certificates.
+
+## APIs
+- [Account Information API (AISP)](https://developers.ybs.co.uk/api-catalog/account-information-api): Read accounts, balances, transactions, beneficiaries, standing orders, direct debits, products, parties and statements. 29 operations.
+- [Payment Initiation API (PISP)](https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0): Domestic, scheduled, standing-order, file and international payment consents and initiation. 41 operations.
+- [Confirmation of Funds API (CBPII)](https://developers.ybs.co.uk/api-catalog/confirmation-funds-api): Funds-confirmation consents and available-funds checks. 4 operations.
+- [Event Subscriptions API](https://developers.ybs.co.uk/api-catalog/event-subscriptions-api): Manage OBIE event notification subscriptions (e.g. consent revocation). 4 operations.
+- [Dynamic Client Registration API](https://developers.ybs.co.uk/api-catalog/dynamic-client-registration-api-0): Register a TPP client with an OBIE/eIDAS software statement.
+- [Generate Access Token API](https://developers.ybs.co.uk/api-catalog/generate-access-token-api): OAuth2/OIDC token endpoint.
+
+## Specs
+- [Account Information OpenAPI](openapi/yorkshire-building-society-account-information-api-openapi.yaml)
+- [Payment Initiation OpenAPI](openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml)
+- [Confirmation of Funds OpenAPI](openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml)
+- [Event Subscriptions OpenAPI](openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml)
+
+## Auth & discovery
+- [YBS/CBS OpenID configuration](https://api.ybs.co.uk/open-banking/v1.0/.well-known/ybs/openid-configuration)
+- [Chelsea OpenID configuration](https://api.ybs.co.uk/open-banking/v1.0/.well-known/che/openid-configuration)
+- Scopes: openid, accounts, payments, fundsconfirmations
+- Token endpoint: https://ob-ybs.api.ybs.co.uk/identity/open-banking/v3.1/token
+- DCR register: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/tpp-client/register
+
+## Docs
+- [Developer Portal](https://developers.ybs.co.uk/)
+- [Getting Started](https://developers.ybs.co.uk/docs/getting-started)
+- [Support](https://developers.ybs.co.uk/support)
+
+## Conventions
+- Idempotency: x-idempotency-key header on all payment writes (see conventions/yorkshire-building-society-conventions.yml)
+- Tracing: x-fapi-interaction-id
+- Signing: x-jws-signature (PS256 detached JWS)
+- Errors: OBErrorResponse1 envelope with UK.OBIE.* error codes (see errors/yorkshire-building-society-problem-types.yml)

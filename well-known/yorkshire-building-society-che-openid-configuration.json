@@ -1,0 +1,22 @@
+
+        {
+    "issuer": "https://ob-che.api.ybs.co.uk",
+    "authorization_endpoint": "https://authorisation.thechelsea.co.uk/public/authentication/pre_login.do",
+    "token_endpoint": "https://ob-che.api.ybs.co.uk/identity/open-banking/v3.1/token",
+    "jwks_uri": "https://keystore.openbanking.org.uk/0015800001041RIAAY/UXIIubFcTJTeZJHCsEpt0L.jwks",
+    "registration_endpoint": "https://ob-che.api.ybs.co.uk/open-banking/v3.1/tpp-client/register",
+    "scopes_supported": ["openid","accounts","payments", "fundsconfirmations"],
+    "response_types_supported": ["code","code id_token"],
+    "grant_types_supported": ["authorization_code", "client_credentials", "refresh_token"],
+    "claims_supported": ["openbanking_intent_id","acr"],
+    "subject_types_supported": ["public"],
+    "id_token_signing_alg_values_supported": ["PS256"],
+    "token_endpoint_auth_signing_alg_values_supported": ["PS256"],
+    "request_object_signing_alg_values_supported": ["PS256"],
+    "token_endpoint_auth_methods_supported": ["client_secret_basic","private_key_jwt"],
+    "claims_parameter_supported": true,
+    "request_parameter_supported": true,
+    "request_uri_parameter_supported": false,
+    "tls_client_certificate_bound_access_tokens": true
+}
+		

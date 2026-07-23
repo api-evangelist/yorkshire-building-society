@@ -1,0 +1,60 @@
+generated: '2026-07-23'
+method: searched
+source: openapi/*-openapi.yaml
+docs: https://api.ybs.co.uk/open-banking/v1.0/.well-known/ybs/openid-configuration
+note: >-
+  FAPI-grade OBIE security profile, confirmed against the live OpenID Provider
+  discovery documents (well-known/*-openid-configuration.json). Beyond the two
+  OpenAPI oauth2 schemes, the real deployment layers mutual-TLS transport
+  authentication (certificate-bound access tokens), private_key_jwt client
+  authentication, PS256-signed request objects and detached JWS response
+  signatures (x-jws-signature), and PSD2 strong customer authentication for the
+  PSU-present authorization-code flow.
+summary:
+  types: [oauth2, mutualTLS]
+  oauth2_flows: [authorizationCode, clientCredentials]
+  token_endpoint_auth_methods: [client_secret_basic, private_key_jwt]
+  request_object_signing_alg: [PS256]
+  id_token_signing_alg: [PS256]
+  mtls_bound_tokens: true
+  sca_required: true
+  profile: FAPI 1.0 / OBIE Read-Write Security Profile
+schemes:
+- name: PSUOAuth2Security
+  type: oauth2
+  flow: authorizationCode
+  authorizationUrl: https://authorisation.ybs.co.uk/public/authentication/pre_login.do
+  tokenUrl: https://ob-ybs.api.ybs.co.uk/identity/open-banking/v3.1/token
+  scopes: [openid, accounts, payments, fundsconfirmations]
+  description: PSU-present SCA flow; response_types code / code id_token.
+  sources:
+  - openapi/yorkshire-building-society-account-information-api-openapi.yaml
+  - openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml
+  - openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
+- name: TPPOAuth2Security
+  type: oauth2
+  flow: clientCredentials
+  tokenUrl: https://ob-ybs.api.ybs.co.uk/identity/open-banking/v3.1/token
+  scopes: [accounts, payments, fundsconfirmations]
+  description: TPP client-credentials flow for consent setup and non-PSU resources.
+  sources:
+  - openapi/yorkshire-building-society-account-information-api-openapi.yaml
+  - openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml
+  - openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml
+  - openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
+- name: MutualTLS
+  type: mutualTLS
+  description: >-
+    OB/eIDAS transport certificate required on every TLS connection; access
+    tokens are certificate-bound (RFC 8705). Not expressible as an OpenAPI 3.0.1
+    securityScheme but mandated by the OBIE profile.
+  sources: [well-known/yorkshire-building-society-ybs-openid-configuration.json]
+signing:
+  request_object_signing_alg: PS256
+  detached_jws_header: x-jws-signature
+  jwks_uri: https://keystore.openbanking.org.uk/0015800001041RIAAY/UXIIubFcTJTeZJHCsEpt0L.jwks
+fapi_headers:
+- x-fapi-interaction-id
+- x-fapi-auth-date
+- x-fapi-customer-ip-address
+- x-customer-user-agent

@@ -1,0 +1,31 @@
+generated: '2026-07-23'
+method: searched
+source: https://developers.ybs.co.uk/docs/getting-started
+note: >-
+  YBS operates a dedicated OBIE sandbox that mirrors the production Read/Write
+  surface for the YBS/CBS and Chelsea brands, plus an Authorisation Mock Page
+  that stands in for PSU strong customer authentication so TPPs can complete the
+  authorization-code flow without a real PSU. No published test-card or magic
+  test-identifier catalogue was found; test data is provisioned per onboarded
+  TPP. Values below are published verbatim on the developer portal.
+environments:
+  production:
+    ybs_cbs_host: https://ob-ybs.api.ybs.co.uk
+    chelsea_host: https://ob-che.api.ybs.co.uk
+    dcr_register: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/tpp-client/register
+    token_endpoint: https://ob-ybs.api.ybs.co.uk/identity/open-banking/v3.1/token
+    openid_configuration: https://api.ybs.co.uk/open-banking/v1.0/.well-known/ybs/openid-configuration
+  sandbox:
+    ybs_cbs_host: https://ob-ybs.sandbox.ybs.co.uk
+    chelsea_host: https://ob-che.sandbox.ybs.co.uk
+    dcr_register: https://ob-ybs.sandbox.ybs.co.uk/open-banking/v3.1/tpp-client/register
+    token_endpoint: https://ob-ybs.sandbox.ybs.co.uk/identity/open-banking/v3.1/token
+    openid_configuration: https://sandbox.ybs.co.uk/open-banking/v1.0/.well-known/ybs/openid-configuration
+test_tools:
+- name: Authorisation Mock Page
+  purpose: Simulates the PSU SCA/authorisation step so a TPP can obtain an authorization code and exchange it for an access token in the sandbox.
+  location: YBS sandbox authorization flow.
+onboarding:
+  mechanism: Dynamic Client Registration (DCR) with an OBIE/eIDAS software statement.
+  transport: Mutual-TLS with an OB/eIDAS transport certificate; PS256-signed request objects.
+  note: TPPs must hold valid FCA authorisation and OBIE directory certificates to register.

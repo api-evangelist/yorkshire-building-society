@@ -1,0 +1,45 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/*-openapi.yaml; well-known/*-openid-configuration.json
+note: >-
+  Cross-cutting request/response semantics for the YBS OBIE Read/Write APIs,
+  derived from the OpenAPI header parameters, error schemas and the OBIE
+  standard. These conventions are common across the AIS, PIS, CBPII and Events
+  surfaces.
+authentication:
+  style: OAuth2 + mutual-TLS (FAPI/OBIE)
+  see: authentication/yorkshire-building-society-authentication.yml
+idempotency:
+  supported: true
+  header: x-idempotency-key
+  scope: All payment-initiation write operations (domestic/scheduled/standing-order/file/international payments and consents).
+  max_length: 40 characters
+  retention: OBIE requires the same key + identical payload to return the original resource for at least 24 hours.
+  behavior: A replayed key with a different request body is rejected (UK.OBIE.Rules.ResourceAlreadyExists / 4xx).
+request_tracing:
+  header: x-fapi-interaction-id
+  behavior: Client-supplied correlation id echoed on the response and surfaced as OBErrorResponse1.Id for support.
+  related_headers: [x-fapi-auth-date, x-fapi-customer-ip-address, x-customer-user-agent]
+message_signing:
+  header: x-jws-signature
+  algorithm: PS256 detached JWS
+  scope: Required on payment write requests and on ASPSP responses per the OBIE Read-Write Security Profile.
+pagination:
+  style: OBIE Links/Meta
+  response_fields: [Links.Self, Links.First, Links.Prev, Links.Next, Links.Last, Meta.TotalPages]
+  request_params: [page]
+  note: Transaction/collection endpoints support from-/to- booking date-time filters where defined by OBIE.
+versioning:
+  style: uri-path
+  current: v3.1
+  see: lifecycle/yorkshire-building-society-lifecycle.yml
+error_envelope:
+  shape: OBErrorResponse1 { Code, Id, Message, Errors[ OBError1 { ErrorCode, Message, Path, Url } ] }
+  content_type: application/json
+  see: errors/yorkshire-building-society-problem-types.yml
+rate_limiting:
+  signal: HTTP 429 on limit exceed
+  note: Per-TPP throttling applied by the ASPSP; no published quantitative limits.
+consent_model:
+  pattern: Two-stage OBIE consent - create a consent resource (returns ConsentId + status), redirect the PSU for SCA, then act against the authorised consent.
+  scopes_binding: openbanking_intent_id claim in the id_token binds the token to the consent.

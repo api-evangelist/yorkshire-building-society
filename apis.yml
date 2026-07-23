@@ -173,6 +173,52 @@ apis:
   - type: GettingStarted
     url: https://developers.ybs.co.uk/docs/getting-started
 common:
+- type: AgenticAccess
+  url: agentic-access/yorkshire-building-society-agentic-access.yml
+- type: DomainSecurity
+  url: security/yorkshire-building-society-domain-security.yml
+- type: OAuthScopes
+  url: scopes/yorkshire-building-society-scopes.yml
+- type: Authentication
+  url: authentication/yorkshire-building-society-authentication.yml
+- type: WellKnown
+  url: well-known/yorkshire-building-society-well-known.yml
+- type: Conformance
+  url: conformance/yorkshire-building-society-conformance.yml
+- type: ErrorCatalog
+  url: errors/yorkshire-building-society-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/yorkshire-building-society-lifecycle.yml
+- type: Conventions
+  url: conventions/yorkshire-building-society-conventions.yml
+- type: Idempotency
+  url: conventions/yorkshire-building-society-conventions.yml
+- type: Sandbox
+  url: sandbox/yorkshire-building-society-sandbox.yml
+- type: DataModel
+  url: data-model/yorkshire-building-society-data-model.yml
+- type: Webhooks
+  url: asyncapi/yorkshire-building-society-events-webhooks.yml
+- type: MCPServer
+  url: mcp/yorkshire-building-society-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/yorkshire-building-society-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/yorkshire-building-society-llms.txt
+- type: Overlay
+  name: Account Information API overlay
+  url: overlays/yorkshire-building-society-account-information-api-overlay.yaml
+- type: Overlay
+  name: Payment Initiation API overlay
+  url: overlays/yorkshire-building-society-payment-initiation-api-overlay.yaml
+- type: Overlay
+  name: Confirmation of Funds API overlay
+  url: overlays/yorkshire-building-society-confirmation-of-funds-api-overlay.yaml
+- type: Overlay
+  name: Event Subscriptions API overlay
+  url: overlays/yorkshire-building-society-event-subscriptions-api-overlay.yaml
 - type: Website
   url: https://www.ybs.co.uk/
 - type: DeveloperPortal

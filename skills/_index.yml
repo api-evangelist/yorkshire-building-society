@@ -1,0 +1,12 @@
+generated: '2026-07-23'
+method: generated
+source: openapi/*-openapi.yaml
+skills:
+- file: yorkshire-building-society-retrieve-account-data.md
+  name: Retrieve YBS account and transaction data (AIS)
+  api: openapi/yorkshire-building-society-account-information-api-openapi.yaml
+  operations: [CreateAccountAccessConsents, GetAccountAccessConsentsConsentId, GetAccounts, GetAccountsAccountId, GetAccountsAccountIdBalances, GetAccountsAccountIdTransactions]
+- file: yorkshire-building-society-initiate-domestic-payment.md
+  name: Initiate a YBS domestic payment (PIS)
+  api: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
+  operations: [CreateDomesticPaymentConsents, GetDomesticPaymentConsentsConsentId, GetDomesticPaymentConsentsConsentIdFundsConfirmation, CreateDomesticPayments, GetDomesticPaymentsDomesticPaymentId]

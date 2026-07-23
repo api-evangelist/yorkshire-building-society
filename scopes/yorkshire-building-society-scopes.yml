@@ -1,0 +1,37 @@
+generated: '2026-07-23'
+method: searched
+source: openapi/yorkshire-building-society-account-information-api-openapi.yaml, openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml, openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml, openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml
+docs: https://api.ybs.co.uk/open-banking/v1.0/.well-known/ybs/openid-configuration
+note: >-
+  Scope set and endpoints upgraded from the live OBIE OpenID Provider discovery
+  documents (well-known/*-openid-configuration.json). Production issuers are
+  https://ob-ybs.api.ybs.co.uk (YBS/CBS) and https://ob-che.api.ybs.co.uk
+  (Chelsea). The OpenAPI files ship placeholder authserver.example URLs; the
+  real authorization/token endpoints are recorded below. All access tokens are
+  mutual-TLS certificate-bound (tls_client_certificate_bound_access_tokens).
+standard: OBIE Read/Write Data API Standard v3.1.2 (UK Open Banking / PSD2)
+schemes:
+- name: PSUOAuth2Security
+  type: oauth2
+  flow: authorizationCode
+  authorizationUrl: https://authorisation.ybs.co.uk/public/authentication/pre_login.do
+  tokenUrl: https://ob-ybs.api.ybs.co.uk/identity/open-banking/v3.1/token
+  note: PSU-present flow requiring PSD2 strong customer authentication (SCA).
+- name: TPPOAuth2Security
+  type: oauth2
+  flow: clientCredentials
+  tokenUrl: https://ob-ybs.api.ybs.co.uk/identity/open-banking/v3.1/token
+  note: TPP client-credentials flow for consent creation and non-PSU resources.
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; returns an id_token binding the openbanking_intent_id.
+  flows: [authorizationCode]
+- scope: accounts
+  description: Account Information (AIS) - read accounts, balances, transactions, beneficiaries, standing orders, direct debits, products, parties and statements.
+  flows: [authorizationCode, clientCredentials]
+- scope: payments
+  description: Payment Initiation (PIS) - set up payment/standing-order/file-payment consents and initiate domestic, scheduled, standing-order and file payments.
+  flows: [authorizationCode, clientCredentials]
+- scope: fundsconfirmations
+  description: Confirmation of Funds (CBPII) - set up a funds-confirmation consent and confirm available funds on a payment account.
+  flows: [authorizationCode, clientCredentials]

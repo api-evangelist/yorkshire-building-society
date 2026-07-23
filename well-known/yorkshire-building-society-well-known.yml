@@ -1,0 +1,35 @@
+generated: '2026-07-23'
+method: searched
+source: https://developers.ybs.co.uk/docs/getting-started
+note: >-
+  YBS/CBS publish OBIE-style OpenID Provider discovery documents per brand (ybs,
+  che) on production (api.ybs.co.uk) and sandbox (sandbox.ybs.co.uk). The OBIE
+  Read/Write resource hosts (ob-ybs.api.ybs.co.uk / ob-che.api.ybs.co.uk) are
+  mutual-TLS gated and return no anonymous /.well-known/ documents. No
+  /.well-known/security.txt or /.well-known/api-catalog is published on the
+  developer portal or corporate site.
+hosts:
+- host: https://api.ybs.co.uk
+  documents:
+  - path: /open-banking/v1.0/.well-known/ybs/openid-configuration
+    status: 200
+    file: yorkshire-building-society-ybs-openid-configuration.json
+    brand: Yorkshire Building Society
+    issuer: https://ob-ybs.api.ybs.co.uk
+  - path: /open-banking/v1.0/.well-known/che/openid-configuration
+    status: 200
+    file: yorkshire-building-society-che-openid-configuration.json
+    brand: Chelsea Building Society
+    issuer: https://ob-che.api.ybs.co.uk
+- host: https://sandbox.ybs.co.uk
+  documents:
+  - path: /open-banking/v1.0/.well-known/ybs/openid-configuration
+    status: 200
+    file: yorkshire-building-society-sandbox-ybs-openid-configuration.json
+    brand: Yorkshire Building Society (sandbox)
+    issuer: https://ob-ybs.sandbox.ybs.co.uk
+misses:
+- {host: https://developers.ybs.co.uk, path: /.well-known/security.txt, status: 404}
+- {host: https://www.ybs.co.uk, path: /.well-known/security.txt, status: 404}
+- {host: https://developers.ybs.co.uk, path: /.well-known/api-catalog, status: 404}
+- {host: 'https://ob-ybs.api.ybs.co.uk', path: /.well-known/openid-configuration, status: 000, note: mutual-TLS gated / no anonymous response}

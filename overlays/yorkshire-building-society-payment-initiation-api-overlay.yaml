@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for YBS PISP Payment Initiation
+  version: 1.0.0
+extends: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-standard: OBIE Read/Write Data API Standard v3.1.2
+    x-apievangelist-security-profile: FAPI 1.0 / OBIE Read-Write (OAuth2 + mutual-TLS + PS256 JWS)
+    x-apievangelist-provider: Yorkshire Building Society
+    x-apievangelist-brands:
+    - Yorkshire Building Society
+    - Chelsea Building Society
+- target: $.servers
+  update:
+  - url: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1
+    description: YBS/CBS production
+  - url: https://ob-che.api.ybs.co.uk/open-banking/v3.1
+    description: Chelsea production
+  - url: https://ob-ybs.sandbox.ybs.co.uk/open-banking/v3.1
+    description: YBS/CBS sandbox

@@ -1,0 +1,42 @@
+generated: '2026-07-23'
+method: searched
+source: >-
+  well-known/*-openid-configuration.json; openapi/*-openapi.yaml;
+  https://developers.ybs.co.uk/docs/getting-started
+note: >-
+  Yorkshire Building Society is an FCA-authorised ASPSP implementing the UK Open
+  Banking / PSD2 Read/Write ecosystem. Conformance below is asserted from the
+  OpenAPI security schemes, the live OpenID Provider metadata, and the OBIE
+  standard the portal declares (Read/Write Data API Standard v3.1.2).
+standards:
+- id: obie-read-write-3.1.2
+  conforms: true
+  evidence: Portal declares OBIE Read/Write Data API Standard v3.1.2; AISP/PISP/CBPII/Events/DCR endpoints match OBIE resource model.
+- id: psd2
+  conforms: true
+  evidence: FCA-authorised ASPSP; PSU strong customer authentication on the authorization-code flow.
+- id: fapi-1.0
+  conforms: true
+  evidence: PS256 request objects, private_key_jwt, certificate-bound tokens, code id_token response type per OBIE Read-Write Security Profile.
+- id: oauth2
+  conforms: true
+  evidence: openapi securitySchemes type oauth2 (authorizationCode + clientCredentials); token_endpoint live.
+- id: oidc
+  conforms: true
+  evidence: OpenID Provider discovery documents published per brand; id_token_signing_alg PS256; openbanking_intent_id claim.
+- id: mtls-rfc8705
+  conforms: true
+  evidence: tls_client_certificate_bound_access_tokens true; OB/eIDAS transport certificates required.
+- id: jws-detached-signature
+  conforms: true
+  evidence: x-jws-signature header on write operations; request_object_signing_alg PS256.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the OBIE OBErrorResponse1 envelope (application/json), not application/problem+json.
+- id: idempotency
+  conforms: true
+  evidence: x-idempotency-key header required on all payment-initiation write operations.
+- id: fhir-r4
+  conforms: false
+- id: scim
+  conforms: false

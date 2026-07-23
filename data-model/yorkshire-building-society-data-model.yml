@@ -1,0 +1,61 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/*-openapi.yaml (OBIE Read/Write resource model)
+note: >-
+  Entity-relationship graph derived from the OBIE Read/Write resource model as
+  exposed by the YBS AIS/PIS/CBPII specs. Ids are OBIE resource identifiers
+  (AccountId, ConsentId, DomesticPaymentId, etc.); every consent is the root of
+  its resource family.
+entities:
+- name: AccountAccessConsent
+  id: ConsentId
+  api: account-information
+  relationships:
+  - {type: has_many, target: Account, via: consent-scope}
+- name: Account
+  id: AccountId
+  api: account-information
+  relationships:
+  - {type: has_many, target: Balance, via: AccountId}
+  - {type: has_many, target: Transaction, via: AccountId}
+  - {type: has_many, target: Beneficiary, via: AccountId}
+  - {type: has_many, target: StandingOrder, via: AccountId}
+  - {type: has_many, target: DirectDebit, via: AccountId}
+  - {type: has_many, target: ScheduledPayment, via: AccountId}
+  - {type: has_many, target: Statement, via: AccountId}
+  - {type: has_one, target: Party, via: AccountId}
+  - {type: has_one, target: Product, via: AccountId}
+- name: Statement
+  id: StatementId
+  api: account-information
+  relationships:
+  - {type: belongs_to, target: Account, via: AccountId}
+  - {type: has_many, target: Transaction, via: StatementId}
+- name: FundsConfirmationConsent
+  id: ConsentId
+  api: confirmation-of-funds
+  relationships:
+  - {type: has_many, target: FundsConfirmation, via: ConsentId}
+- name: DomesticPaymentConsent
+  id: ConsentId
+  api: payment-initiation
+  relationships:
+  - {type: has_many, target: DomesticPayment, via: ConsentId}
+  - {type: has_one, target: FundsConfirmation, via: ConsentId}
+- name: DomesticPayment
+  id: DomesticPaymentId
+  api: payment-initiation
+  relationships:
+  - {type: belongs_to, target: DomesticPaymentConsent, via: ConsentId}
+  - {type: has_one, target: PaymentDetails, via: DomesticPaymentId}
+- name: FilePaymentConsent
+  id: ConsentId
+  api: payment-initiation
+  relationships:
+  - {type: has_many, target: FilePayment, via: ConsentId}
+- name: EventSubscription
+  id: EventSubscriptionId
+  api: event-subscriptions
+  relationships: []
+notes:
+- International and standing-order/scheduled payment families mirror the domestic Consent -> Payment -> PaymentDetails shape.

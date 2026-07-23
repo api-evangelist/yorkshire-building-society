@@ -1,0 +1,47 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/*-openapi.yaml (OBErrorResponse1 / OBError1 schemas + 4xx/5xx responses)
+format: obie-oberror
+note: >-
+  YBS uses the OBIE error model, not RFC 9457. Every 4xx/5xx carries an
+  OBErrorResponse1 envelope { Code, Id, Message, Errors[] } where each Errors[]
+  item is an OBError1 { ErrorCode, Message, Path, Url }. ErrorCode values are
+  namespaced UK.OBIE.* codes drawn from the OBIE Read/Write standard.
+envelope:
+  schema: OBErrorResponse1
+  fields:
+    Code: HTTP status code as a string.
+    Id: Unique reference (maps to x-fapi-interaction-id) for support triage.
+    Message: Short human-readable summary.
+    Errors: Array of OBError1 items.
+  item_schema: OBError1
+  item_fields:
+    ErrorCode: Namespaced UK.OBIE.* low-level error code.
+    Message: Description of the specific error.
+    Path: Dot/array path to the offending request field.
+    Url: URL to the OBIE documentation for the error.
+http_statuses:
+- {status: 400, meaning: Bad request - malformed or invalid payload/headers, envelope: OBErrorResponse1}
+- {status: 401, meaning: Unauthorized - missing/invalid/expired access token, envelope: OBErrorResponse1}
+- {status: 403, meaning: Forbidden - token lacks the required scope/consent, envelope: OBErrorResponse1}
+- {status: 404, meaning: Not found - resource or consent id does not exist, envelope: OBErrorResponse1}
+- {status: 405, meaning: Method not allowed for the resource, envelope: OBErrorResponse1}
+- {status: 406, meaning: Not acceptable - unsupported Accept header, envelope: OBErrorResponse1}
+- {status: 429, meaning: Too many requests - rate limit exceeded, envelope: OBErrorResponse1}
+- {status: 500, meaning: Internal server error, envelope: OBErrorResponse1}
+common_obie_error_codes:
+- {code: UK.OBIE.Field.Invalid, meaning: A request field failed validation.}
+- {code: UK.OBIE.Field.Missing, meaning: A required field was not supplied.}
+- {code: UK.OBIE.Field.Unexpected, meaning: An unexpected field was supplied.}
+- {code: UK.OBIE.Header.Missing, meaning: A required header was not supplied.}
+- {code: UK.OBIE.Header.Invalid, meaning: A supplied header is invalid.}
+- {code: UK.OBIE.Resource.NotFound, meaning: The requested resource does not exist.}
+- {code: UK.OBIE.Resource.InvalidConsentStatus, meaning: The consent is not in a status that allows the operation.}
+- {code: UK.OBIE.Resource.InvalidFormat, meaning: The resource format is invalid.}
+- {code: UK.OBIE.Resource.ConsentMismatch, meaning: Request does not match the granted consent.}
+- {code: UK.OBIE.Rules.ResourceAlreadyExists, meaning: Idempotency/uniqueness violation.}
+- {code: UK.OBIE.Signature.Invalid, meaning: The x-jws-signature is invalid or missing.}
+- {code: UK.OBIE.Signature.Missing, meaning: A required detached JWS signature was not supplied.}
+- {code: UK.OBIE.Unsupported.Currency, meaning: The requested currency is not supported.}
+- {code: UK.OBIE.Unsupported.Scheme, meaning: The requested payment scheme is not supported.}
+- {code: UK.OBIE.UnexpectedError, meaning: An unexpected server-side error occurred.}

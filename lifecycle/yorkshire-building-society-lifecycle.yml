@@ -1,0 +1,28 @@
+generated: '2026-07-23'
+method: searched
+source: >-
+  https://developers.ybs.co.uk/docs/getting-started;
+  well-known/*-openid-configuration.json; openapi/*-openapi.yaml
+note: >-
+  YBS aligns its versioning and lifecycle to the OBIE Read/Write Data API
+  Standard rather than a bespoke YBS release train. No YBS-hosted public status
+  page, changelog, or roadmap was found on the developer portal; version
+  progression follows OBIE standard releases. No deprecated operations are
+  declared in the current v3.1.2 specs.
+versioning:
+  scheme: uri-path
+  current: v3.1
+  standard: OBIE Read/Write Data API Standard v3.1.2
+  base_path: /open-banking/v3.1
+  identity_base_path: /identity/open-banking/v3.1
+  discovery_version: v1.0
+  docs: https://developers.ybs.co.uk/docs/getting-started
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No RFC 8594 Sunset/Deprecation header support documented; deprecation tracks OBIE standard retirement.
+sla:
+  url: null
+  note: Availability governed by PSD2/FCA regulatory obligations for ASPSPs; no public uptime target published.
+status_page: null
+deprecated_operations: []
