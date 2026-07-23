@@ -1,0 +1,194 @@
+aid: yorkshire-building-society
+url: https://raw.githubusercontent.com/api-evangelist/yorkshire-building-society/refs/heads/main/apis.yml
+name: Yorkshire Building Society
+kind: company
+description: >-
+  Yorkshire Building Society (YBS) is a UK mutual building society founded in
+  1864 and headquartered in Bradford, West Yorkshire. As a member-owned mutual
+  rather than a shareholder-owned bank, it is owned by and run for the benefit
+  of its savers and borrowers, with more than three million customers and around
+  £66 billion in assets across the YBS Group, which trades under the Yorkshire
+  Building Society, Chelsea Building Society (CBS), Norwich & Peterborough and
+  Accord Mortgages brands. YBS is authorised by the Prudential Regulation
+  Authority and regulated by the Financial Conduct Authority and the PRA as an
+  FCA-authorised ASPSP. Although it is not one of the CMA9 banks mandated to
+  build Open Banking, YBS is a voluntary participant in the UK Open Banking /
+  PSD2 ecosystem and operates a public developer portal at developers.ybs.co.uk
+  that documents its OBIE Read/Write API family - Account Information (AIS),
+  Payment Initiation (PIS), Confirmation of Funds (CBPII), Event Subscriptions,
+  Dynamic Client Registration, and token issuance - conformant to the Open
+  Banking Implementation Entity (OBIE) Read/Write Data API Standard v3.1.2.
+  Access to the production and sandbox surfaces (ob-ybs.api.ybs.co.uk /
+  ob-che.api.ybs.co.uk and the matching sandbox hosts) is secured with
+  FAPI-grade OAuth2/OIDC, PSD2 strong customer authentication, mutual-TLS
+  transport authentication and PS256-signed JWTs, and is available to
+  FCA-authorised third-party providers holding eIDAS/OBIE certificates.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial Services
+- Banking
+- Building Society
+- Open Banking
+- PSD2
+- OBIE
+- FAPI
+- United Kingdom
+- Payments
+- Account Information
+- Fintech
+created: '2026-07-23'
+modified: '2026-07-23'
+specificationVersion: '0.19'
+apis:
+- aid: yorkshire-building-society:ybs-account-information-api
+  name: Yorkshire Building Society Account Information API
+  description: >-
+    OBIE Read/Write Account and Transaction Information (AISP) API v3.1.2 -
+    lets FCA-authorised account information service providers retrieve account,
+    balance, transaction, beneficiary, standing order, direct debit, product,
+    party and statement data for consenting YBS and Chelsea Building Society
+    payment-account customers. FAPI-secured (OAuth2/OIDC, mTLS, PSD2 SCA).
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Account Information
+  - AISP
+  - Open Banking
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-account-information-api-openapi.yaml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+- aid: yorkshire-building-society:ybs-payment-initiation-api
+  name: Yorkshire Building Society Payment Initiation API
+  description: >-
+    OBIE Read/Write Payment Initiation (PISP) API v3.1.2 - lets FCA-authorised
+    payment initiation service providers set up domestic single, scheduled,
+    standing-order and file payment consents and initiate payments from
+    consenting YBS and Chelsea Building Society accounts. FAPI-secured
+    (OAuth2/OIDC, mTLS, PSD2 SCA).
+  humanURL: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/pisp
+  tags:
+  - Payment Initiation
+  - PISP
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+- aid: yorkshire-building-society:ybs-confirmation-of-funds-api
+  name: Yorkshire Building Society Confirmation of Funds API
+  description: >-
+    OBIE Read/Write Confirmation of Funds (CBPII) API v3.1.2 - lets
+    FCA-authorised card-based payment instrument issuers set up a funds
+    confirmation consent and confirm whether a specified amount is available
+    on a consenting YBS or Chelsea Building Society account. FAPI-secured
+    (OAuth2/OIDC, mTLS, PSD2 SCA).
+  humanURL: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/cbpii
+  tags:
+  - Confirmation of Funds
+  - CBPII
+  - Open Banking
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+- aid: yorkshire-building-society:ybs-event-subscriptions-api
+  name: Yorkshire Building Society Event Subscriptions API
+  description: >-
+    OBIE Read/Write Event Subscriptions API v3.1.2 - lets an onboarded TPP
+    create, read and delete event subscriptions so it can receive
+    aggregated-polling and real-time event notifications (for example consent
+    revocation) for YBS and Chelsea Building Society Open Banking resources.
+    FAPI-secured (OAuth2/OIDC, mTLS).
+  humanURL: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Event Subscriptions
+  - Notifications
+  - Open Banking
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+- aid: yorkshire-building-society:ybs-dynamic-client-registration-api
+  name: Yorkshire Building Society Dynamic Client Registration API
+  description: >-
+    OBIE Dynamic Client Registration (DCR) API v3.1 - lets an FCA-authorised
+    TPP present its OBIE/eIDAS software statement and register a client
+    application with the YBS and Chelsea Building Society authorization servers.
+    Part of the OBIE security profile; secured with mTLS and PS256-signed JWTs.
+  humanURL: https://developers.ybs.co.uk/api-catalog/dynamic-client-registration-api-0
+  baseURL: https://ob-ybs.api.ybs.co.uk/register
+  tags:
+  - Dynamic Client Registration
+  - Security
+  - OAuth
+  properties:
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/dynamic-client-registration-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/dynamic-client-registration-api-0
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+- aid: yorkshire-building-society:ybs-generate-access-token-api
+  name: Yorkshire Building Society Generate Access Token API
+  description: >-
+    OBIE token endpoint (Generate Access Token API v3.1.0) - the OAuth2/OIDC
+    token endpoint used by onboarded TPPs to exchange authorization codes and
+    client credentials for access tokens against the YBS and Chelsea Building
+    Society authorization servers. FAPI-secured with mTLS and PS256-signed JWTs.
+  humanURL: https://developers.ybs.co.uk/api-catalog/generate-access-token-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/token
+  tags:
+  - OAuth
+  - Token
+  - Security
+  properties:
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/generate-access-token-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/generate-access-token-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+common:
+- type: Website
+  url: https://www.ybs.co.uk/
+- type: DeveloperPortal
+  url: https://developers.ybs.co.uk/
+- type: Documentation
+  url: https://developers.ybs.co.uk/docs/getting-started
+- type: GettingStarted
+  url: https://developers.ybs.co.uk/docs/getting-started
+- type: Support
+  url: https://developers.ybs.co.uk/support
+- type: TermsOfService
+  url: https://developers.ybs.co.uk/legal
+- type: PrivacyPolicy
+  url: https://developers.ybs.co.uk/privacy-policy
+- type: LinkedIn
+  url: https://www.linkedin.com/company/yorkshire-building-society
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,145 @@
+aid: yorkshire-building-society
+name: Yorkshire Building Society
+review:
+  question: >-
+    Does Yorkshire Building Society run a public developer portal, is any Open
+    Data (unauthenticated) endpoint confirmed live, and what is the auth model
+    and spec provenance of its OBIE Read/Write APIs?
+  answer: true
+  date: '2026-07-23'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    Yorkshire Building Society (YBS), a UK mutual building society and
+    FCA-authorised ASPSP, runs a genuine public developer portal at
+    https://developers.ybs.co.uk/ (Pronovix/Drupal-based). The portal is
+    openly browsable - no registration is required to read the documentation
+    or the API catalog - and publishes a six-API OBIE Read/Write family:
+    Account Information (AIS) v3.1.2, Payment Initiation (PIS) v3.1.2,
+    Confirmation of Funds (CBPII) v3.1.2, Event Subscriptions v3.1.2,
+    Dynamic Client Registration v3.1, and Generate Access Token v3.1.0.
+    APIs are exposed for two brands - Yorkshire Building Society (YBS) and
+    Chelsea Building Society (CBS/CHE) - each with a production and a sandbox
+    host.
+
+    YBS is NOT one of the CMA9 banks mandated to build Open Banking; it is a
+    voluntary participant. Consistent with that, NO Open Data
+    (unauthenticated ATM/Branch/Product reference-data) API is published -
+    only the FAPI-secured Read/Write surface exists. No live Open Data
+    endpoint could be (or should be expected to be) confirmed.
+
+    The Read/Write hosts are real: ob-ybs.api.ybs.co.uk resolves to AWS
+    eu-west-1 (34.244.255.101). Direct unauthenticated probes to the
+    production and sandbox hosts and their /.well-known/openid-configuration
+    return no usable HTTP response (curl exit with TLS verification failure,
+    ssl_verify_result 19/20) because the endpoints require mutual-TLS client
+    certificates - expected FAPI/OBIE behaviour, not an outage. The auth
+    model documented in Getting Started is FAPI 2.0 with Client Secret Basic
+    at the token endpoint in production, mandatory TLS Mutual Authentication,
+    and PS256-signed JWTs, layered over OAuth2/OIDC and PSD2 strong customer
+    authentication. Onboarding requires an FCA authorisation plus OBIE/eIDAS
+    certificates via the Dynamic Client Registration API.
+
+    Spec provenance: the portal's own Swagger/OpenAPI files are served behind
+    a WAF that rejects non-browser clients (HTTP 406), so a bank-proprietary
+    contract could not be harvested directly. Instead the four modellable
+    surfaces were harvested VERBATIM from the official Open Banking UK
+    standard at github.com/OpenBankingUK/read-write-api-specs, branch v3.1.2
+    - the exact version YBS documents. These are the SHARED OBIE STANDARD
+    specs, not YBS-authored contracts, and are labelled as such in apis.yml
+    and README.md. Dynamic Client Registration and the token endpoint are
+    part of the OBIE security profile and are not OpenAPI-modelled, so no
+    spec was fabricated for them.
+  developerPortal:
+    url: https://developers.ybs.co.uk/
+    confirmed: true
+    registrationRequiredToViewDocs: false
+    note: Portal reachable and browsable via browser client; returns HTTP 406 to non-browser (curl) clients behind a WAF.
+  cma9: false
+  openDataConfirmed: false
+  openDataNote: >-
+    YBS is a voluntary (non-CMA9) Open Banking participant and publishes no
+    unauthenticated Open Data (ATM/Branch/Product) API. No Open Data base URL
+    exists to confirm; none was invented.
+  readWriteConformance:
+    standard: OBIE Read/Write Data API Standard
+    version: v3.1.2
+    apis:
+    - Account Information (AISP) v3.1.2
+    - Payment Initiation (PISP) v3.1.2
+    - Confirmation of Funds (CBPII) v3.1.2
+    - Event Subscriptions v3.1.2
+    - Dynamic Client Registration v3.1
+    - Generate Access Token v3.1.0
+    authModel:
+    - FAPI 2.0 (Client Secret Basic token endpoint in production)
+    - OAuth2 / OpenID Connect
+    - Mutual TLS (TLS MA) client authentication
+    - PS256-signed request objects / JWTs
+    - PSD2 Strong Customer Authentication (SCA)
+    onboarding: FCA authorisation + OBIE/eIDAS certificates via Dynamic Client Registration
+  brandsAndHosts:
+    ybs:
+      productionHost: ob-ybs.api.ybs.co.uk
+      sandboxHost: ob-ybs.sandbox.ybs.co.uk
+    chelsea:
+      productionHost: ob-che.api.ybs.co.uk
+      sandboxHost: ob-che.sandbox.ybs.co.uk
+  specProvenance:
+    proprietaryHarvested: false
+    obieStandardHarvested: true
+    obieStandardSource: https://github.com/OpenBankingUK/read-write-api-specs
+    obieStandardBranch: v3.1.2
+    harvestedFiles:
+    - openapi/yorkshire-building-society-account-information-api-openapi.yaml
+    - openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
+    - openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml
+    - openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml
+    note: >-
+      OpenAPI 3.0.1 documents, info.version v3.1.2, harvested verbatim from the
+      shared OBIE standard - representative of YBS conformance, NOT YBS-authored
+      API contracts.
+  transports:
+  - protocol: REST
+    scheme: https
+    baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1
+    documented: true
+    note: FAPI-secured OBIE Read/Write. Requires mutual-TLS; unauthenticated probe fails TLS handshake (ssl_verify_result 19/20).
+  - protocol: WebSocket
+    scheme: wss
+    documented: false
+    note: No WebSocket surface documented. Event delivery is HTTP aggregated-polling / real-time event notifications, not WebSocket.
+  probes:
+  - url: https://ob-ybs.api.ybs.co.uk/.well-known/openid-configuration
+    status: '000'
+    note: TLS handshake rejected (mTLS required) - host resolves to AWS eu-west-1 34.244.255.101; expected FAPI behaviour.
+  - url: https://ob-ybs.sandbox.ybs.co.uk/.well-known/openid-configuration
+    status: '000'
+    note: TLS handshake rejected (mTLS required); host resolves.
+  - url: https://developers.ybs.co.uk/api-catalog/account-information-api
+    status: '200'
+    note: Reachable via browser client (WAF returns 406 to curl). Documents AIS v3.1.2.
+  - url: https://www.ybs.co.uk/
+    status: '200'
+    note: Corporate website live.
+sources:
+- url: https://developers.ybs.co.uk/
+  type: DeveloperPortal
+  note: Public YBS developer portal home; API catalog and getting-started openly browsable.
+- url: https://developers.ybs.co.uk/api-catalog
+  type: APIReference
+  note: Lists all six OBIE Read/Write APIs with versions.
+- url: https://developers.ybs.co.uk/docs/getting-started
+  type: Documentation
+  note: Documents FAPI 2.0, TLS MA, PS256, sandbox/production hosts for YBS and CBS brands.
+- url: https://github.com/OpenBankingUK/read-write-api-specs
+  type: OpenAPI
+  note: Official OBIE Read/Write standard; branch v3.1.2 harvested verbatim as the shared-standard specs YBS conforms to.
+actions:
+  openapiHarvested: true
+  openapiProvenance: OBIE shared standard v3.1.2 (not bank-proprietary)
+  apisYmlUpdated: true
+  reason: >-
+    Bootstrapped YBS identity plus its real six-API OBIE Read/Write catalog and
+    four verbatim OBIE-standard OpenAPI specs. No Open Data endpoint exists for
+    this non-CMA9 mutual; nothing was fabricated.
