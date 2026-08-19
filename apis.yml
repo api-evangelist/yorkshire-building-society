@@ -38,7 +38,7 @@ tags:
 - Fintech
 created: '2026-07-23'
 modified: '2026-07-23'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: yorkshire-building-society:ybs-account-information-api
   name: Yorkshire Building Society Account Information API
