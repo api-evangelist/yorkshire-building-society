@@ -244,3 +244,9 @@ tools:
 - name: delete_event_subscriptions_event_subscription_id
   description: Delete Event Subscription
   source_operation: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml#DeleteEventSubscriptionsEventSubscriptionId
+deployment:
+  mode: none
+  verified: derived
+  tools: 78
+  checked: '2026-08-12'
+  source: catalog MCP census
