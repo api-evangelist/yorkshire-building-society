@@ -25,6 +25,18 @@ description: >-
   FCA-authorised third-party providers holding eIDAS/OBIE certificates.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
+- Financial-Services
+- Banking
+- Building Society
+- Open Banking
+- PSD2
+- OBIE
+- FAPI
+- United Kingdom
+- Payments
+- Account Information
+- Fintech
+tags_raw:
 - Financial Services
 - Banking
 - Building Society
@@ -121,6 +133,10 @@ apis:
   baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
   tags:
   - Event Subscriptions
+  - Notification
+  - Open Banking
+  tags_raw:
+  - Event Subscriptions
   - Notifications
   - Open Banking
   properties:
@@ -144,6 +160,10 @@ apis:
   tags:
   - Dynamic Client Registration
   - Security
+  - Authentication
+  tags_raw:
+  - Dynamic Client Registration
+  - Security
   - OAuth
   properties:
   - type: Documentation
@@ -162,6 +182,10 @@ apis:
   humanURL: https://developers.ybs.co.uk/api-catalog/generate-access-token-api
   baseURL: https://ob-ybs.api.ybs.co.uk/token
   tags:
+  - Authentication
+  - Token
+  - Security
+  tags_raw:
   - OAuth
   - Token
   - Security
