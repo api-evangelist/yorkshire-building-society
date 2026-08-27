@@ -52,109 +52,12 @@ created: '2026-07-23'
 modified: '2026-07-23'
 specificationVersion: '0.23'
 apis:
-- aid: yorkshire-building-society:ybs-account-information-api
-  name: Yorkshire Building Society Account Information API
-  description: >-
-    OBIE Read/Write Account and Transaction Information (AISP) API v3.1.2 -
-    lets FCA-authorised account information service providers retrieve account,
-    balance, transaction, beneficiary, standing order, direct debit, product,
-    party and statement data for consenting YBS and Chelsea Building Society
-    payment-account customers. FAPI-secured (OAuth2/OIDC, mTLS, PSD2 SCA).
-  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
-  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
-  tags:
-  - Account Information
-  - AISP
-  - Open Banking
-  properties:
-  - type: OpenAPI
-    url: openapi/yorkshire-building-society-account-information-api-openapi.yaml
-  - type: Documentation
-    url: https://developers.ybs.co.uk/api-catalog/account-information-api
-  - type: APIReference
-    url: https://developers.ybs.co.uk/api-catalog/account-information-api
-  - type: GettingStarted
-    url: https://developers.ybs.co.uk/docs/getting-started
-- aid: yorkshire-building-society:ybs-payment-initiation-api
-  name: Yorkshire Building Society Payment Initiation API
-  description: >-
-    OBIE Read/Write Payment Initiation (PISP) API v3.1.2 - lets FCA-authorised
-    payment initiation service providers set up domestic single, scheduled,
-    standing-order and file payment consents and initiate payments from
-    consenting YBS and Chelsea Building Society accounts. FAPI-secured
-    (OAuth2/OIDC, mTLS, PSD2 SCA).
-  humanURL: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
-  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/pisp
-  tags:
-  - Payment Initiation
-  - PISP
-  - Payments
-  properties:
-  - type: OpenAPI
-    url: openapi/yorkshire-building-society-payment-initiation-api-openapi.yaml
-  - type: Documentation
-    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
-  - type: APIReference
-    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
-  - type: GettingStarted
-    url: https://developers.ybs.co.uk/docs/getting-started
-- aid: yorkshire-building-society:ybs-confirmation-of-funds-api
-  name: Yorkshire Building Society Confirmation of Funds API
-  description: >-
-    OBIE Read/Write Confirmation of Funds (CBPII) API v3.1.2 - lets
-    FCA-authorised card-based payment instrument issuers set up a funds
-    confirmation consent and confirm whether a specified amount is available
-    on a consenting YBS or Chelsea Building Society account. FAPI-secured
-    (OAuth2/OIDC, mTLS, PSD2 SCA).
-  humanURL: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
-  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/cbpii
-  tags:
-  - Confirmation of Funds
-  - CBPII
-  - Open Banking
-  properties:
-  - type: OpenAPI
-    url: openapi/yorkshire-building-society-confirmation-of-funds-api-openapi.yaml
-  - type: Documentation
-    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
-  - type: APIReference
-    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
-  - type: GettingStarted
-    url: https://developers.ybs.co.uk/docs/getting-started
-- aid: yorkshire-building-society:ybs-event-subscriptions-api
-  name: Yorkshire Building Society Event Subscriptions API
-  description: >-
-    OBIE Read/Write Event Subscriptions API v3.1.2 - lets an onboarded TPP
-    create, read and delete event subscriptions so it can receive
-    aggregated-polling and real-time event notifications (for example consent
-    revocation) for YBS and Chelsea Building Society Open Banking resources.
-    FAPI-secured (OAuth2/OIDC, mTLS).
-  humanURL: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
-  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
-  tags:
-  - Event Subscriptions
-  - Notification
-  - Open Banking
-  tags_raw:
-  - Event Subscriptions
-  - Notifications
-  - Open Banking
-  properties:
-  - type: OpenAPI
-    url: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yaml
-  - type: Documentation
-    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
-  - type: APIReference
-    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
-  - type: GettingStarted
-    url: https://developers.ybs.co.uk/docs/getting-started
 - aid: yorkshire-building-society:ybs-dynamic-client-registration-api
   name: Yorkshire Building Society Dynamic Client Registration API
   description: >-
-    OBIE Dynamic Client Registration (DCR) API v3.1 - lets an FCA-authorised
-    TPP present its OBIE/eIDAS software statement and register a client
-    application with the YBS and Chelsea Building Society authorization servers.
-    Part of the OBIE security profile; secured with mTLS and PS256-signed JWTs.
+    OBIE Dynamic Client Registration (DCR) API v3.1 - lets an FCA-authorised TPP present its OBIE/eIDAS
+    software statement and register a client application with the YBS and Chelsea Building Society authorization
+    servers. Part of the OBIE security profile; secured with mTLS and PS256-signed JWTs.
   humanURL: https://developers.ybs.co.uk/api-catalog/dynamic-client-registration-api-0
   baseURL: https://ob-ybs.api.ybs.co.uk/register
   tags:
@@ -175,10 +78,9 @@ apis:
 - aid: yorkshire-building-society:ybs-generate-access-token-api
   name: Yorkshire Building Society Generate Access Token API
   description: >-
-    OBIE token endpoint (Generate Access Token API v3.1.0) - the OAuth2/OIDC
-    token endpoint used by onboarded TPPs to exchange authorization codes and
-    client credentials for access tokens against the YBS and Chelsea Building
-    Society authorization servers. FAPI-secured with mTLS and PS256-signed JWTs.
+    OBIE token endpoint (Generate Access Token API v3.1.0) - the OAuth2/OIDC token endpoint used by onboarded
+    TPPs to exchange authorization codes and client credentials for access tokens against the YBS and
+    Chelsea Building Society authorization servers. FAPI-secured with mTLS and PS256-signed JWTs.
   humanURL: https://developers.ybs.co.uk/api-catalog/generate-access-token-api
   baseURL: https://ob-ybs.api.ybs.co.uk/token
   tags:
@@ -196,6 +98,643 @@ apis:
     url: https://developers.ybs.co.uk/api-catalog/generate-access-token-api
   - type: GettingStarted
     url: https://developers.ybs.co.uk/docs/getting-started
+- aid: yorkshire-building-society:yorkshire-building-society-account-access-api
+  name: Yorkshire Building Society Account Access API
+  description: >-
+    The Account Access API from Yorkshire Building Society — 2 operation(s) for account access.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Account Access
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-account-access-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-accounts-api
+  name: Yorkshire Building Society Accounts API
+  description: The Accounts API from Yorkshire Building Society — 2 operation(s) for accounts.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-balances-api
+  name: Yorkshire Building Society Balances API
+  description: The Balances API from Yorkshire Building Society — 2 operation(s) for balances.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-balances-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-beneficiaries-api
+  name: Yorkshire Building Society Beneficiaries API
+  description: >-
+    The Beneficiaries API from Yorkshire Building Society — 2 operation(s) for beneficiaries.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Beneficiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-beneficiaries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-direct-debits-api
+  name: Yorkshire Building Society Direct Debits API
+  description: >-
+    The Direct Debits API from Yorkshire Building Society — 2 operation(s) for direct debits.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Direct Debits
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-domestic-payments-api
+  name: Yorkshire Building Society Domestic Payments API
+  description: >-
+    The Domestic Payments API from Yorkshire Building Society — 5 operation(s) for domestic payments.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Domestic Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-domestic-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-domestic-scheduled-payments-api
+  name: Yorkshire Building Society Domestic Scheduled Payments API
+  description: >-
+    The Domestic Scheduled Payments API from Yorkshire Building Society — 4 operation(s) for domestic
+    scheduled payments.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Domestic Scheduled Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-domestic-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-domestic-standing-orders-api
+  name: Yorkshire Building Society Domestic Standing Orders API
+  description: >-
+    The Domestic Standing Orders API from Yorkshire Building Society — 4 operation(s) for domestic standing
+    orders.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Domestic Standing Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-domestic-standing-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-event-subscriptions-api
+  name: Yorkshire Building Society Event Subscriptions API
+  description: >-
+    The Event Subscriptions API from Yorkshire Building Society — 2 operation(s) for event subscriptions.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Event Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-event-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-file-payments-api
+  name: Yorkshire Building Society File Payments API
+  description: >-
+    The File Payments API from Yorkshire Building Society — 6 operation(s) for file payments.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - File Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-file-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-funds-confirmations-api
+  name: Yorkshire Building Society Funds Confirmations API
+  description: >-
+    The Funds Confirmations API from Yorkshire Building Society — 3 operation(s) for funds confirmations.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Funds Confirmations
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-funds-confirmations-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-international-payments-api
+  name: Yorkshire Building Society International Payments API
+  description: >-
+    The International Payments API from Yorkshire Building Society — 5 operation(s) for international
+    payments.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - International Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-international-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: >-
+    yorkshire-building-society:yorkshire-building-society-international-scheduled-payments-api
+  name: Yorkshire Building Society International Scheduled Payments API
+  description: >-
+    The International Scheduled Payments API from Yorkshire Building Society — 5 operation(s) for international
+    scheduled payments.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - International Scheduled Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-international-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-international-standing-orders-api
+  name: Yorkshire Building Society International Standing Orders API
+  description: >-
+    The International Standing Orders API from Yorkshire Building Society — 4 operation(s) for international
+    standing orders.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - International Standing Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-international-standing-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-offers-api
+  name: Yorkshire Building Society Offers API
+  description: The Offers API from Yorkshire Building Society — 2 operation(s) for offers.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-offers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-parties-api
+  name: Yorkshire Building Society Parties API
+  description: The Parties API from Yorkshire Building Society — 3 operation(s) for parties.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Parties
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-parties-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-payment-details-api
+  name: Yorkshire Building Society Payment Details API
+  description: >-
+    The Payment Details API from Yorkshire Building Society — 7 operation(s) for payment details.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Payment Details
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-payment-details-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-products-api
+  name: Yorkshire Building Society Products API
+  description: The Products API from Yorkshire Building Society — 2 operation(s) for products.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-products-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-scheduled-payments-api
+  name: Yorkshire Building Society Scheduled Payments API
+  description: >-
+    The Scheduled Payments API from Yorkshire Building Society — 2 operation(s) for scheduled payments.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Scheduled Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-standing-orders-api
+  name: Yorkshire Building Society Standing Orders API
+  description: >-
+    The Standing Orders API from Yorkshire Building Society — 2 operation(s) for standing orders.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Standing Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-standing-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-statements-api
+  name: Yorkshire Building Society Statements API
+  description: The Statements API from Yorkshire Building Society — 4 operation(s) for statements.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-statements-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+- aid: yorkshire-building-society:yorkshire-building-society-transactions-api
+  name: Yorkshire Building Society Transactions API
+  description: The Transactions API from Yorkshire Building Society — 3 operation(s) for transactions.
+  humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
+  baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/yorkshire-building-society-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/account-information-api
+  - type: GettingStarted
+    url: https://developers.ybs.co.uk/docs/getting-started
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/payment-initiation-api-0
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/confirmation-funds-api
+  - type: Documentation
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
+  - type: APIReference
+    url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
 common:
 - type: AgenticAccess
   url: agentic-access/yorkshire-building-society-agentic-access.yml
