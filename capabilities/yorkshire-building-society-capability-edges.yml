@@ -1,0 +1,138 @@
+slug: yorkshire-building-society
+provider: Yorkshire Building Society
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 13
+edges:
+- tag: Domestic Payments
+  spec_file: yorkshire-building-society-domestic-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.93
+  evidence: POST /domestic-payment-consents 'Create Domestic Payment Consents'; POST /domestic-payments
+    'Create Domestic Payments'; GET .../funds-confirmation; title 'OpenAPI for Payment Initiation API
+    Specification'
+  reason: 'Explicit Open Banking payment initiation: consent capture, funds confirmation and payment instruction
+    submission — payment instruction capture, validation and authorisation.'
+- tag: Domestic Scheduled Payments
+  spec_file: yorkshire-building-society-domestic-scheduled-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.9
+  evidence: POST /domestic-scheduled-payment-consents 'Create Domestic Scheduled Payment Consents'; POST
+    /domestic-scheduled-payments 'Create Domestic Scheduled Payments'
+  reason: Payment initiation for future-dated domestic payments, including consent authorisation and instruction
+    capture under the Payment Initiation API specification.
+- tag: International Payments
+  spec_file: yorkshire-building-society-international-payments-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.9
+  evidence: POST /international-payments CreateInternationalPayments; schemas OBWriteInternational2, CountryCode,
+    ActiveOrHistoricCurrencyCode
+  reason: Initiation and retrieval of cross-border payments with currency and country data — international
+    payment management.
+- tag: Domestic Standing Orders
+  spec_file: yorkshire-building-society-domestic-standing-orders-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.88
+  evidence: POST /domestic-standing-order-consents 'Create Domestic Standing Order Consents'; POST /domestic-standing-orders
+    'Create Domestic Standing Orders'
+  reason: Initiation and authorisation of recurring domestic standing order instructions under the Payment
+    Initiation API specification — payment instruction capture and authorisation.
+- tag: File Payments
+  spec_file: yorkshire-building-society-file-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.88
+  evidence: POST /file-payment-consents CreateFilePaymentConsents; POST /file-payments CreateFilePayments
+    — "OpenAPI for Payment Initiation API Specification"
+  reason: 'UK Open Banking bulk/file payment initiation: consent capture, authorisation and submission
+    of payment instructions — payment initiation management.'
+- tag: International Scheduled Payments
+  spec_file: yorkshire-building-society-international-scheduled-payments-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.88
+  evidence: POST /international-scheduled-payments CreateInternationalScheduledPayments; OBWriteInternationalScheduledConsent3
+  reason: Future-dated cross-border payment initiation via Open Banking consents — cross-border payment
+    management.
+- tag: International Standing Orders
+  spec_file: yorkshire-building-society-international-standing-orders-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.85
+  evidence: POST /international-standing-orders CreateInternationalStandingOrders; OBWriteInternationalStandingOrder3
+  reason: Recurring international payment instructions set up and retrieved — cross-border payment initiation/management.
+- tag: Products
+  spec_file: yorkshire-building-society-products-api-openapi.yml
+  capability_id: BC-1310.10
+  capability_id_l1: BC-1310
+  capability_name: Product Catalogue Management
+  confidence: 0.82
+  evidence: GET /products GetProducts; schemas OB_FeeType1Code, OB_InterestRateType1Code_0, OB_OverdraftFeeType1Code
+  reason: Publishes banking product definitions with fees, rates and overdraft terms — product catalogue/master
+    data for banking products.
+- tag: Parties
+  spec_file: yorkshire-building-society-parties-api-openapi.yml
+  capability_id: BC-1300.40
+  capability_id_l1: BC-1300
+  capability_name: Customer Information Management
+  confidence: 0.8
+  evidence: GET /party GetParty; schemas OBParty2, FullLegalName, PartyId, OBExternalPartyType1Code
+  reason: Exposes account holder / party identity and contact details — banking customer information management.
+- tag: Payment Details
+  spec_file: yorkshire-building-society-payment-details-api-openapi.yml
+  capability_id: BC-1340.20
+  capability_id_l1: BC-1340
+  capability_name: Payment Processing Management
+  confidence: 0.72
+  evidence: GET /domestic-payments/{DomesticPaymentId}/payment-details Get Payment Details; schema OBWritePaymentDetailsResponse1
+  reason: Returns processing/status detail for submitted payments across domestic and international rails
+    — payment processing/status tracking rather than initiation.
+- tag: Funds Confirmations
+  spec_file: yorkshire-building-society-funds-confirmations-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: POST /funds-confirmations CreateFundsConfirmations — "OpenAPI for Confirmation of Funds API
+    Specification"
+  reason: Confirmation of Funds checks availability of funds on a payment account prior to payment; sits
+    in the payments domain as a pre-authorisation validation step, though not a payment execution itself.
+- tag: Scheduled Payments
+  spec_file: yorkshire-building-society-scheduled-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: GET /accounts/{AccountId}/scheduled-payments; schemas OBScheduledPayment2, ScheduledPaymentDateTime
+  reason: Read access to future-dated payment instructions held on an account — payment instruction (initiation)
+    records, though the surface is read-only account information.
+- tag: Standing Orders
+  spec_file: yorkshire-building-society-standing-orders-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: GET /standing-orders GetStandingOrders; schemas OBReadStandingOrder5, OBExternalStandingOrderStatus1Code,
+    FirstPaymentDateTime
+  reason: Retrieval of recurring payment instructions (standing orders) on an account — payment instruction
+    management, read-only view.

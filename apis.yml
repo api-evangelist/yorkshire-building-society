@@ -748,6 +748,9 @@ apis:
   - type: APIReference
     url: https://developers.ybs.co.uk/api-catalog/event-subscriptions-api
 common:
+- type: CapabilityMap
+  url: capabilities/yorkshire-building-society-capability-edges.yml
+  name: Yorkshire Building Society Business Capability Map
 - type: AgenticAccess
   url: agentic-access/yorkshire-building-society-agentic-access.yml
 - type: DomainSecurity
