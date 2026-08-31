@@ -145,6 +145,8 @@ apis:
   humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
   baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -611,6 +613,8 @@ apis:
   humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
   baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -725,6 +729,8 @@ apis:
   humanURL: https://developers.ybs.co.uk/api-catalog/account-information-api
   baseURL: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
