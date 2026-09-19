@@ -112,7 +112,7 @@ apis:
   baseURL: https://ob-ybs.api.ybs.co.uk/token
   tags:
   - Authentication
-  - Token
+  - Tokens
   - Security
   tags_raw:
   - OAuth
