@@ -10,6 +10,9 @@ info:
     name: open-licence
     url: 'https://www.openbanking.org.uk/open-licence'
   version: v3.1.2
+servers:
+- url: https://ob-ybs.api.ybs.co.uk/open-banking/v3.1/aisp
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
 paths:
   /account-access-consents:
     post:

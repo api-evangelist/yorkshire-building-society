@@ -84,7 +84,121 @@ paths:
       - PSUOAuth2Security:
         - accounts
 components:
+  responses:
+    200AccountsAccountIdRead:
+      description: Accounts Read
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBReadAccount4'
+    400Error:
+      description: Bad request
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBErrorResponse1'
+    404Error:
+      description: Not found
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+    406Error:
+      description: Not Acceptable
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+    403Error:
+      description: Forbidden
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBErrorResponse1'
+    405Error:
+      description: Method Not Allowed
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+    429Error:
+      description: Too Many Requests
+      headers:
+        Retry-After:
+          description: Number in seconds to wait
+          schema:
+            type: integer
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+    200AccountsRead:
+      description: Accounts Read
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBReadAccount4'
+    500Error:
+      description: Internal Server Error
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBErrorResponse1'
+    401Error:
+      description: Unauthorized
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
   schemas:
+    AccountId:
+      description: A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
+      type: string
+      minLength: 1
+      maxLength: 40
+    OBAccountStatus1Code:
+      description: Specifies the status of account resource in code form.
+      type: string
+      enum:
+      - Deleted
+      - Disabled
+      - Enabled
+      - Pending
+      - ProForma
+    SecondaryIdentification:
+      description: "This is secondary identification of the account, as assigned by the account servicing institution. \nThis can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination)."
+      type: string
+      minLength: 1
+      maxLength: 34
     OBExternalAccountIdentification4Code:
       description: Name of the identification scheme, in a coded form as published in an external list.
       type: string
@@ -94,19 +208,70 @@ components:
       - UK.OBIE.PAN
       - UK.OBIE.Paym
       - UK.OBIE.SortCodeAccountNumber
-    Meta:
-      title: MetaData
+    OBAccount4Basic:
       type: object
-      description: Meta Data relevant to the payload
+      description: Unambiguous identification of the account to which credit and debit entries are made.
+      required:
+      - AccountId
+      - Currency
+      - AccountType
+      - AccountSubType
       properties:
-        TotalPages:
-          type: integer
-          format: int32
-        FirstAvailableDateTime:
-          $ref: '#/components/schemas/ISODateTime'
-        LastAvailableDateTime:
-          $ref: '#/components/schemas/ISODateTime'
+        AccountId:
+          $ref: '#/components/schemas/AccountId'
+        Status:
+          $ref: '#/components/schemas/OBAccountStatus1Code'
+        StatusUpdateDateTime:
+          $ref: '#/components/schemas/StatusUpdateDateTime'
+        Currency:
+          $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_0'
+        AccountType:
+          $ref: '#/components/schemas/OBExternalAccountType1Code'
+        AccountSubType:
+          $ref: '#/components/schemas/OBExternalAccountSubType1Code'
+        Description:
+          $ref: '#/components/schemas/Description_0'
+        Nickname:
+          $ref: '#/components/schemas/Nickname'
+    OBErrorResponse1:
+      description: An array of detail error codes, and messages, and URLs to documentation to help remediation.
+      type: object
+      properties:
+        Code:
+          description: High level textual error code, to help categorize the errors.
+          type: string
+          minLength: 1
+          maxLength: 40
+        Id:
+          description: A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors.
+          type: string
+          minLength: 1
+          maxLength: 40
+        Message:
+          description: Brief Error message, e.g., 'There is something wrong with the request parameters provided'
+          type: string
+          minLength: 1
+          maxLength: 500
+        Errors:
+          items:
+            $ref: '#/components/schemas/OBError1'
+          type: array
+          minItems: 1
+      required:
+      - Code
+      - Message
+      - Errors
       additionalProperties: false
+    OBExternalFinancialInstitutionIdentification4Code:
+      description: Name of the identification scheme, in a coded form as published in an external list.
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.BICFI
+    Description_0:
+      description: Specifies the description of the account type.
+      type: string
+      minLength: 1
+      maxLength: 35
     OBAccount4Detail:
       type: object
       description: Unambiguous identification of the account to which credit and debit entries are made.
@@ -152,10 +317,64 @@ components:
                 $ref: '#/components/schemas/SecondaryIdentification'
         Servicer:
           $ref: '#/components/schemas/OBBranchAndFinancialInstitutionIdentification5_0'
-    StatusUpdateDateTime:
-      description: "Date and time at which the resource status was updated.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+    Meta:
+      title: MetaData
+      type: object
+      description: Meta Data relevant to the payload
+      properties:
+        TotalPages:
+          type: integer
+          format: int32
+        FirstAvailableDateTime:
+          $ref: '#/components/schemas/ISODateTime'
+        LastAvailableDateTime:
+          $ref: '#/components/schemas/ISODateTime'
+      additionalProperties: false
+    OBBranchAndFinancialInstitutionIdentification5_0:
+      type: object
+      required:
+      - SchemeName
+      - Identification
+      description: Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+      properties:
+        SchemeName:
+          $ref: '#/components/schemas/OBExternalFinancialInstitutionIdentification4Code'
+        Identification:
+          $ref: '#/components/schemas/Identification_1'
+    Name_0:
+      description: 'The account name is the name or names of the account owner(s) represented at an account level, as displayed by the ASPSP''s online channels.
+
+        Note, the account name is not the product name or the nickname of the account.'
       type: string
-      format: date-time
+      minLength: 1
+      maxLength: 70
+    Identification_0:
+      description: Identification assigned by an institution to identify an account. This identification is known by the account owner.
+      type: string
+      minLength: 1
+      maxLength: 256
+    Identification_1:
+      description: Unique and unambiguous identification of the servicing institution.
+      type: string
+      minLength: 1
+      maxLength: 35
+    OBExternalAccountSubType1Code:
+      description: Specifies the sub type of account (product family group).
+      type: string
+      enum:
+      - ChargeCard
+      - CreditCard
+      - CurrentAccount
+      - EMoney
+      - Loan
+      - Mortgage
+      - PrePaidCard
+      - Savings
+    Nickname:
+      description: The nickname of the account, assigned by the account owner in order to provide an additional means of identification of the account.
+      type: string
+      minLength: 1
+      maxLength: 70
     OBReadAccount4:
       type: object
       required:
@@ -172,58 +391,14 @@ components:
           $ref: '#/components/schemas/Links'
         Meta:
           $ref: '#/components/schemas/Meta'
-    OBExternalAccountSubType1Code:
-      description: Specifies the sub type of account (product family group).
+    StatusUpdateDateTime:
+      description: "Date and time at which the resource status was updated.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
       type: string
-      enum:
-      - ChargeCard
-      - CreditCard
-      - CurrentAccount
-      - EMoney
-      - Loan
-      - Mortgage
-      - PrePaidCard
-      - Savings
+      format: date-time
     ISODateTime:
       description: "All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
       type: string
       format: date-time
-    Name_0:
-      description: 'The account name is the name or names of the account owner(s) represented at an account level, as displayed by the ASPSP''s online channels.
-
-        Note, the account name is not the product name or the nickname of the account.'
-      type: string
-      minLength: 1
-      maxLength: 70
-    OBErrorResponse1:
-      description: An array of detail error codes, and messages, and URLs to documentation to help remediation.
-      type: object
-      properties:
-        Code:
-          description: High level textual error code, to help categorize the errors.
-          type: string
-          minLength: 1
-          maxLength: 40
-        Id:
-          description: A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors.
-          type: string
-          minLength: 1
-          maxLength: 40
-        Message:
-          description: Brief Error message, e.g., 'There is something wrong with the request parameters provided'
-          type: string
-          minLength: 1
-          maxLength: 500
-        Errors:
-          items:
-            $ref: '#/components/schemas/OBError1'
-          type: array
-          minItems: 1
-      required:
-      - Code
-      - Message
-      - Errors
-      additionalProperties: false
     Links:
       type: object
       description: Links relevant to the payload
@@ -246,86 +421,16 @@ components:
       additionalProperties: false
       required:
       - Self
-    OBAccount4Basic:
-      type: object
-      description: Unambiguous identification of the account to which credit and debit entries are made.
-      required:
-      - AccountId
-      - Currency
-      - AccountType
-      - AccountSubType
-      properties:
-        AccountId:
-          $ref: '#/components/schemas/AccountId'
-        Status:
-          $ref: '#/components/schemas/OBAccountStatus1Code'
-        StatusUpdateDateTime:
-          $ref: '#/components/schemas/StatusUpdateDateTime'
-        Currency:
-          $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_0'
-        AccountType:
-          $ref: '#/components/schemas/OBExternalAccountType1Code'
-        AccountSubType:
-          $ref: '#/components/schemas/OBExternalAccountSubType1Code'
-        Description:
-          $ref: '#/components/schemas/Description_0'
-        Nickname:
-          $ref: '#/components/schemas/Nickname'
-    Identification_0:
-      description: Identification assigned by an institution to identify an account. This identification is known by the account owner.
-      type: string
-      minLength: 1
-      maxLength: 256
-    OBAccountStatus1Code:
-      description: Specifies the status of account resource in code form.
-      type: string
-      enum:
-      - Deleted
-      - Disabled
-      - Enabled
-      - Pending
-      - ProForma
-    Identification_1:
-      description: Unique and unambiguous identification of the servicing institution.
-      type: string
-      minLength: 1
-      maxLength: 35
-    ActiveOrHistoricCurrencyCode_0:
-      description: "Identification of the currency in which the account is held. \nUsage: Currency should only be used in case one and the same account number covers several currencies\nand the initiating party needs to identify which currency needs to be used for settlement on the account."
-      type: string
-      pattern: ^[A-Z]{3,3}$
-    Nickname:
-      description: The nickname of the account, assigned by the account owner in order to provide an additional means of identification of the account.
-      type: string
-      minLength: 1
-      maxLength: 70
-    AccountId:
-      description: A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
-      type: string
-      minLength: 1
-      maxLength: 40
-    SecondaryIdentification:
-      description: "This is secondary identification of the account, as assigned by the account servicing institution. \nThis can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination)."
-      type: string
-      minLength: 1
-      maxLength: 34
     OBExternalAccountType1Code:
       description: Specifies the type of account (personal or business).
       type: string
       enum:
       - Business
       - Personal
-    OBBranchAndFinancialInstitutionIdentification5_0:
-      type: object
-      required:
-      - SchemeName
-      - Identification
-      description: Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
-      properties:
-        SchemeName:
-          $ref: '#/components/schemas/OBExternalFinancialInstitutionIdentification4Code'
-        Identification:
-          $ref: '#/components/schemas/Identification_1'
+    OBAccount4:
+      oneOf:
+      - $ref: '#/components/schemas/OBAccount4Basic'
+      - $ref: '#/components/schemas/OBAccount4Detail'
     OBError1:
       type: object
       properties:
@@ -380,26 +485,23 @@ components:
       - Message
       additionalProperties: false
       minProperties: 1
-    OBAccount4:
-      oneOf:
-      - $ref: '#/components/schemas/OBAccount4Basic'
-      - $ref: '#/components/schemas/OBAccount4Detail'
-    Description_0:
-      description: Specifies the description of the account type.
+    ActiveOrHistoricCurrencyCode_0:
+      description: "Identification of the currency in which the account is held. \nUsage: Currency should only be used in case one and the same account number covers several currencies\nand the initiating party needs to identify which currency needs to be used for settlement on the account."
       type: string
-      minLength: 1
-      maxLength: 35
-    OBExternalFinancialInstitutionIdentification4Code:
-      description: Name of the identification scheme, in a coded form as published in an external list.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.BICFI
+      pattern: ^[A-Z]{3,3}$
   parameters:
-    x-fapi-interaction-id:
+    x-fapi-customer-ip-address:
       in: header
-      name: x-fapi-interaction-id
+      name: x-fapi-customer-ip-address
       required: false
-      description: An RFC4122 UID used as a correlation id.
+      description: The PSU's IP address if the PSU is currently logged in with the TPP.
+      schema:
+        type: string
+    Authorization:
+      in: header
+      name: Authorization
+      required: true
+      description: An Authorisation Token as per https://tools.ietf.org/html/rfc6750
       schema:
         type: string
     x-fapi-auth-date:
@@ -410,6 +512,13 @@ components:
       schema:
         type: string
         pattern: ^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4} \d{2}:\d{2}:\d{2} (GMT|UTC)$
+    x-fapi-interaction-id:
+      in: header
+      name: x-fapi-interaction-id
+      required: false
+      description: An RFC4122 UID used as a correlation id.
+      schema:
+        type: string
     AccountId:
       name: AccountId
       in: path
@@ -417,115 +526,6 @@ components:
       required: true
       schema:
         type: string
-    Authorization:
-      in: header
-      name: Authorization
-      required: true
-      description: An Authorisation Token as per https://tools.ietf.org/html/rfc6750
-      schema:
-        type: string
-    x-fapi-customer-ip-address:
-      in: header
-      name: x-fapi-customer-ip-address
-      required: false
-      description: The PSU's IP address if the PSU is currently logged in with the TPP.
-      schema:
-        type: string
-  responses:
-    500Error:
-      description: Internal Server Error
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBErrorResponse1'
-    429Error:
-      description: Too Many Requests
-      headers:
-        Retry-After:
-          description: Number in seconds to wait
-          schema:
-            type: integer
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-    406Error:
-      description: Not Acceptable
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-    401Error:
-      description: Unauthorized
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-    404Error:
-      description: Not found
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-    200AccountsAccountIdRead:
-      description: Accounts Read
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBReadAccount4'
-    400Error:
-      description: Bad request
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBErrorResponse1'
-    200AccountsRead:
-      description: Accounts Read
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBReadAccount4'
-    403Error:
-      description: Forbidden
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBErrorResponse1'
-    405Error:
-      description: Method Not Allowed
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
   securitySchemes:
     TPPOAuth2Security:
       type: oauth2
