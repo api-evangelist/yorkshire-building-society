@@ -159,14 +159,64 @@ paths:
         - accounts
 components:
   schemas:
-    File:
+    OBReadDataStatement2:
       type: object
-      properties: {}
-    AccountId:
-      description: A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
+      properties:
+        Statement:
+          type: array
+          items:
+            $ref: '#/components/schemas/OBStatement2'
+    OBRate1_0:
+      description: Rate charged for Statement Fee (where it is charged in terms of a rate rather than an amount)
+      type: number
+    OBExternalStatementDateTimeType1Code:
+      description: Date time type, in a coded form.
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.BalanceTransferPromoEnd
+      - UK.OBIE.DirectDebitDue
+      - UK.OBIE.LastPayment
+      - UK.OBIE.LastStatement
+      - UK.OBIE.NextStatement
+      - UK.OBIE.PaymentDue
+      - UK.OBIE.PurchasePromoEnd
+      - UK.OBIE.StatementAvailable
+    OBActiveOrHistoricCurrencyAndAmount_4:
+      type: object
+      required:
+      - Amount
+      - Currency
+      description: Amount of money associated with the statement fee type.
+      properties:
+        Amount:
+          $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
+        Currency:
+          $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
+    Description_2:
+      description: Description that may be available for the statement interest.
       type: string
       minLength: 1
-      maxLength: 40
+      maxLength: 128
+    OBExternalStatementFeeRateType1Code:
+      description: Description that may be available for the statement fee rate type.
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.AER
+      - UK.OBIE.EAR
+    OBActiveOrHistoricCurrencyAndAmount_6:
+      type: object
+      required:
+      - Amount
+      - Currency
+      description: Amount of money associated with the amount type.
+      properties:
+        Amount:
+          $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
+        Currency:
+          $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
+    OBRate1_1:
+      description: field representing a percentage (e.g. 0.05 represents 5% and 0.9525 represents 95.25%). Note the number of decimal places may vary.
+      type: number
     OBActiveOrHistoricCurrencyAndAmount_5:
       type: object
       required:
@@ -178,23 +228,159 @@ components:
           $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
         Currency:
           $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
-    OBExternalStatementRateType1Code:
-      description: Rate associated with the statement rate type.
-      type: string
-      pattern: ^(-?\d{1,3}){1}(\.\d{1,4}){0,1}$
-    OBExternalStatementInterestType1Code:
-      description: Interest amount type, in a coded form.
+    OBExternalStatementAmountType1Code:
+      description: Amount type, in a coded form.
       type: string
       x-namespaced-enum:
-      - UK.OBIE.BalanceTransfer
-      - UK.OBIE.Cash
-      - UK.OBIE.EstimatedNext
-      - UK.OBIE.Purchase
-      - UK.OBIE.Total
-    CreationDateTime:
-      description: "Date and time at which the resource was created.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+      - UK.OBIE.ArrearsClosingBalance
+      - UK.OBIE.AvailableBalance
+      - UK.OBIE.AverageBalanceWhenInCredit
+      - UK.OBIE.AverageBalanceWhenInDebit
+      - UK.OBIE.AverageDailyBalance
+      - UK.OBIE.BalanceTransferClosingBalance
+      - UK.OBIE.CashClosingBalance
+      - UK.OBIE.ClosingBalance
+      - UK.OBIE.CreditLimit
+      - UK.OBIE.CurrentPayment
+      - UK.OBIE.DirectDebitPaymentDue
+      - UK.OBIE.FSCSInsurance
+      - UK.OBIE.MinimumPaymentDue
+      - UK.OBIE.PendingTransactionsBalance
+      - UK.OBIE.PreviousClosingBalance
+      - UK.OBIE.PreviousPayment
+      - UK.OBIE.PurchaseClosingBalance
+      - UK.OBIE.StartingBalance
+      - UK.OBIE.TotalAdjustments
+      - UK.OBIE.TotalCashAdvances
+      - UK.OBIE.TotalCharges
+      - UK.OBIE.TotalCredits
+      - UK.OBIE.TotalDebits
+      - UK.OBIE.TotalPurchases
+    OBReadStatement2:
+      type: object
+      required:
+      - Data
+      properties:
+        Data:
+          $ref: '#/components/schemas/OBReadDataStatement2'
+        Links:
+          $ref: '#/components/schemas/Links'
+        Meta:
+          $ref: '#/components/schemas/Meta'
+    EndDateTime:
+      description: "Date and time at which the statement period ends.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
       type: string
       format: date-time
+    OBExternalStatementInterestFrequency1Code:
+      description: Specifies the statement fee type requested
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.Daily
+      - UK.OBIE.HalfYearly
+      - UK.OBIE.Monthly
+      - UK.OBIE.PerStatementDate
+      - UK.OBIE.Quarterly
+      - UK.OBIE.Weekly
+      - UK.OBIE.Yearly
+    OBExternalStatementType1Code:
+      description: Statement type, in a coded form.
+      type: string
+      enum:
+      - AccountClosure
+      - AccountOpening
+      - Annual
+      - Interim
+      - RegularPeriodic
+    OBError1:
+      type: object
+      properties:
+        ErrorCode:
+          description: Low level textual error code, e.g., UK.OBIE.Field.Missing
+          type: string
+          x-namespaced-enum:
+          - UK.OBIE.Field.Expected
+          - UK.OBIE.Field.Invalid
+          - UK.OBIE.Field.InvalidDate
+          - UK.OBIE.Field.Missing
+          - UK.OBIE.Field.Unexpected
+          - UK.OBIE.Header.Invalid
+          - UK.OBIE.Header.Missing
+          - UK.OBIE.Reauthenticate
+          - UK.OBIE.Resource.ConsentMismatch
+          - UK.OBIE.Resource.InvalidConsentStatus
+          - UK.OBIE.Resource.InvalidFormat
+          - UK.OBIE.Resource.NotFound
+          - UK.OBIE.Rules.AfterCutOffDateTime
+          - UK.OBIE.Rules.DuplicateReference
+          - UK.OBIE.Signature.Invalid
+          - UK.OBIE.Signature.InvalidClaim
+          - UK.OBIE.Signature.Malformed
+          - UK.OBIE.Signature.Missing
+          - UK.OBIE.Signature.MissingClaim
+          - UK.OBIE.Signature.Unexpected
+          - UK.OBIE.UnexpectedError
+          - UK.OBIE.Unsupported.AccountIdentifier
+          - UK.OBIE.Unsupported.AccountSecondaryIdentifier
+          - UK.OBIE.Unsupported.Currency
+          - UK.OBIE.Unsupported.Frequency
+          - UK.OBIE.Unsupported.LocalInstrument
+          - UK.OBIE.Unsupported.Scheme
+        Message:
+          description: 'A description of the error that occurred. e.g., ''A mandatory field isn''t supplied'' or ''RequestedExecutionDateTime must be in future''
+
+            OBIE doesn''t standardise this field'
+          type: string
+          minLength: 1
+          maxLength: 500
+        Path:
+          description: Recommended but optional reference to the JSON Path of the field with error, e.g., Data.Initiation.InstructedAmount.Currency
+          type: string
+          minLength: 1
+          maxLength: 500
+        Url:
+          description: URL to help remediate the problem, or provide more information, or to API Reference, or help etc
+          type: string
+      required:
+      - ErrorCode
+      - Message
+      additionalProperties: false
+      minProperties: 1
+    OBStatement2:
+      oneOf:
+      - $ref: '#/components/schemas/OBStatement2Basic'
+      - $ref: '#/components/schemas/OBStatement2Detail'
+    Meta:
+      title: MetaData
+      type: object
+      description: Meta Data relevant to the payload
+      properties:
+        TotalPages:
+          type: integer
+          format: int32
+        FirstAvailableDateTime:
+          $ref: '#/components/schemas/ISODateTime'
+        LastAvailableDateTime:
+          $ref: '#/components/schemas/ISODateTime'
+      additionalProperties: false
+    StartDateTime:
+      description: "Date and time at which the statement period starts.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+      type: string
+      format: date-time
+    AccountId:
+      description: A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
+      type: string
+      minLength: 1
+      maxLength: 40
+    OBActiveCurrencyAndAmount_SimpleType:
+      description: A number of monetary units specified in an active currency where the unit of currency is explicit and compliant with ISO 4217.
+      type: string
+      pattern: ^\d{1,13}\.\d{1,5}$
+    OBCreditDebitCode_0:
+      description: "Indicates whether the amount is a credit or a debit. \nUsage: A zero amount is considered to be a credit amount."
+      type: string
+      enum:
+      - Credit
+      - Debit
     OBErrorResponse1:
       description: An array of detail error codes, and messages, and URLs to documentation to help remediation.
       type: object
@@ -229,30 +415,69 @@ components:
       type: string
       minLength: 1
       maxLength: 128
-    Meta:
-      title: MetaData
-      type: object
-      description: Meta Data relevant to the payload
-      properties:
-        TotalPages:
-          type: integer
-          format: int32
-        FirstAvailableDateTime:
-          $ref: '#/components/schemas/ISODateTime'
-        LastAvailableDateTime:
-          $ref: '#/components/schemas/ISODateTime'
-      additionalProperties: false
-    OBActiveOrHistoricCurrencyAndAmount_6:
+    OBActiveOrHistoricCurrencyAndAmount_3:
       type: object
       required:
       - Amount
       - Currency
-      description: Amount of money associated with the amount type.
+      description: Amount of money associated with the statement benefit type.
       properties:
         Amount:
           $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
         Currency:
           $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
+    ISODateTime:
+      description: "All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+      type: string
+      format: date-time
+    OBExternalStatementInterestType1Code:
+      description: Interest amount type, in a coded form.
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.BalanceTransfer
+      - UK.OBIE.Cash
+      - UK.OBIE.EstimatedNext
+      - UK.OBIE.Purchase
+      - UK.OBIE.Total
+    Type_0:
+      description: Statement rate type, in a coded form.
+      type: string
+      minLength: 1
+      maxLength: 40
+    StatementReference:
+      description: Unique reference for the statement. This reference may be optionally populated if available.
+      type: string
+      minLength: 1
+      maxLength: 35
+    Links:
+      type: object
+      description: Links relevant to the payload
+      properties:
+        Self:
+          type: string
+          format: uri
+        First:
+          type: string
+          format: uri
+        Prev:
+          type: string
+          format: uri
+        Next:
+          type: string
+          format: uri
+        Last:
+          type: string
+          format: uri
+      additionalProperties: false
+      required:
+      - Self
+    File:
+      type: object
+      properties: {}
+    OBExternalStatementRateType1Code:
+      description: Rate associated with the statement rate type.
+      type: string
+      pattern: ^(-?\d{1,3}){1}(\.\d{1,4}){0,1}$
     OBExternalStatementFeeType1Code:
       description: Fee type, in a coded form.
       type: string
@@ -272,47 +497,164 @@ components:
       - UK.OBIE.PrizeEntry
       - UK.OBIE.StatementCopy
       - UK.OBIE.Total
-    OBReadStatement2:
-      type: object
-      required:
-      - Data
-      properties:
-        Data:
-          $ref: '#/components/schemas/OBReadDataStatement2'
-        Links:
-          $ref: '#/components/schemas/Links'
-        Meta:
-          $ref: '#/components/schemas/Meta'
-    OBRate1_1:
-      description: field representing a percentage (e.g. 0.05 represents 5% and 0.9525 represents 95.25%). Note the number of decimal places may vary.
-      type: number
-    OBExternalStatementInterestFrequency1Code:
-      description: Specifies the statement fee type requested
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.Daily
-      - UK.OBIE.HalfYearly
-      - UK.OBIE.Monthly
-      - UK.OBIE.PerStatementDate
-      - UK.OBIE.Quarterly
-      - UK.OBIE.Weekly
-      - UK.OBIE.Yearly
-    Type_0:
-      description: Statement rate type, in a coded form.
+    StatementId:
+      description: Unique identifier for the statement resource within an servicing institution. This identifier is both unique and immutable.
       type: string
       minLength: 1
       maxLength: 40
-    OBActiveOrHistoricCurrencyAndAmount_4:
+    Type_1:
+      description: Statement value type, in a coded form.
+      type: string
+      minLength: 1
+      maxLength: 40
+    OBExternalStatementInterestRateType1Code:
+      description: Description that may be available for the statement Interest rate type.
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.BOEBaseRate
+      - UK.OBIE.FixedRate
+      - UK.OBIE.Gross
+      - UK.OBIE.LoanProviderBaseRate
+      - UK.OBIE.Net
+    ActiveOrHistoricCurrencyCode_1:
+      description: A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies and funds".
+      type: string
+      pattern: ^[A-Z]{3,3}$
+    OBStatement2Basic:
       type: object
+      description: Provides further details on a statement resource.
       required:
-      - Amount
-      - Currency
-      description: Amount of money associated with the statement fee type.
+      - AccountId
+      - Type
+      - StartDateTime
+      - EndDateTime
+      - CreationDateTime
       properties:
-        Amount:
-          $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
-        Currency:
-          $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
+        AccountId:
+          $ref: '#/components/schemas/AccountId'
+        StatementId:
+          $ref: '#/components/schemas/StatementId'
+        StatementReference:
+          $ref: '#/components/schemas/StatementReference'
+        Type:
+          $ref: '#/components/schemas/OBExternalStatementType1Code'
+        StartDateTime:
+          $ref: '#/components/schemas/StartDateTime'
+        EndDateTime:
+          $ref: '#/components/schemas/EndDateTime'
+        CreationDateTime:
+          $ref: '#/components/schemas/CreationDateTime'
+        StatementDescription:
+          type: array
+          items:
+            description: Other descriptions that may be available for the statement resource.
+            type: string
+            minLength: 1
+            maxLength: 500
+        StatementBenefit:
+          type: array
+          items:
+            type: object
+            description: Set of elements used to provide details of a benefit or reward amount for the statement resource.
+            required:
+            - Type
+            - Amount
+            properties:
+              Type:
+                $ref: '#/components/schemas/OBExternalStatementBenefitType1Code'
+              Amount:
+                $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_3'
+        StatementFee:
+          type: array
+          items:
+            type: object
+            description: Set of elements used to provide details of a fee for the statement resource.
+            required:
+            - CreditDebitIndicator
+            - Type
+            - Amount
+            properties:
+              Description:
+                $ref: '#/components/schemas/Description_1'
+              CreditDebitIndicator:
+                $ref: '#/components/schemas/OBCreditDebitCode_0'
+              Type:
+                $ref: '#/components/schemas/OBExternalStatementFeeType1Code'
+              Rate:
+                $ref: '#/components/schemas/OBRate1_0'
+              RateType:
+                $ref: '#/components/schemas/OBExternalStatementFeeRateType1Code'
+              Frequency:
+                $ref: '#/components/schemas/OBExternalStatementFeeFrequency1Code'
+              Amount:
+                $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_4'
+        StatementInterest:
+          type: array
+          items:
+            type: object
+            description: Set of elements used to provide details of a generic interest amount related to the statement resource.
+            required:
+            - CreditDebitIndicator
+            - Type
+            - Amount
+            properties:
+              Description:
+                $ref: '#/components/schemas/Description_2'
+              CreditDebitIndicator:
+                $ref: '#/components/schemas/OBCreditDebitCode_0'
+              Type:
+                $ref: '#/components/schemas/OBExternalStatementInterestType1Code'
+              Rate:
+                $ref: '#/components/schemas/OBRate1_1'
+              RateType:
+                $ref: '#/components/schemas/OBExternalStatementInterestRateType1Code'
+              Frequency:
+                $ref: '#/components/schemas/OBExternalStatementInterestFrequency1Code'
+              Amount:
+                $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_5'
+        StatementDateTime:
+          type: array
+          items:
+            type: object
+            description: Set of elements used to provide details of a generic date time for the statement resource.
+            required:
+            - DateTime
+            - Type
+            properties:
+              DateTime:
+                $ref: '#/components/schemas/DateTime'
+              Type:
+                $ref: '#/components/schemas/OBExternalStatementDateTimeType1Code'
+        StatementRate:
+          type: array
+          items:
+            type: object
+            description: Set of elements used to provide details of a generic rate related to the statement resource.
+            required:
+            - Rate
+            - Type
+            properties:
+              Rate:
+                $ref: '#/components/schemas/OBExternalStatementRateType1Code'
+              Type:
+                $ref: '#/components/schemas/Type_0'
+        StatementValue:
+          type: array
+          items:
+            type: object
+            description: Set of elements used to provide details of a generic number value related to the statement resource.
+            required:
+            - Value
+            - Type
+            properties:
+              Value:
+                $ref: '#/components/schemas/OBExternalStatementValueType1Code'
+              Type:
+                $ref: '#/components/schemas/Type_1'
+    CreationDateTime:
+      description: "Date and time at which the resource was created.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+      type: string
+      format: date-time
     OBStatement2Detail:
       type: object
       description: Provides further details on a statement resource.
@@ -460,27 +802,6 @@ components:
                 $ref: '#/components/schemas/OBExternalStatementValueType1Code'
               Type:
                 $ref: '#/components/schemas/Type_1'
-    OBActiveOrHistoricCurrencyAndAmount_3:
-      type: object
-      required:
-      - Amount
-      - Currency
-      description: Amount of money associated with the statement benefit type.
-      properties:
-        Amount:
-          $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
-        Currency:
-          $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
-    OBCreditDebitCode_0:
-      description: "Indicates whether the amount is a credit or a debit. \nUsage: A zero amount is considered to be a credit amount."
-      type: string
-      enum:
-      - Credit
-      - Debit
-    OBActiveCurrencyAndAmount_SimpleType:
-      description: A number of monetary units specified in an active currency where the unit of currency is explicit and compliant with ISO 4217.
-      type: string
-      pattern: ^\d{1,13}\.\d{1,5}$
     OBExternalStatementBenefitType1Code:
       description: Benefit type, in a coded form.
       type: string
@@ -489,326 +810,10 @@ components:
       - UK.OBIE.Insurance
       - UK.OBIE.TravelDiscount
       - UK.OBIE.TravelInsurance
-    ISODateTime:
-      description: "All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
-      type: string
-      format: date-time
-    Links:
-      type: object
-      description: Links relevant to the payload
-      properties:
-        Self:
-          type: string
-          format: uri
-        First:
-          type: string
-          format: uri
-        Prev:
-          type: string
-          format: uri
-        Next:
-          type: string
-          format: uri
-        Last:
-          type: string
-          format: uri
-      additionalProperties: false
-      required:
-      - Self
-    OBExternalStatementDateTimeType1Code:
-      description: Date time type, in a coded form.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.BalanceTransferPromoEnd
-      - UK.OBIE.DirectDebitDue
-      - UK.OBIE.LastPayment
-      - UK.OBIE.LastStatement
-      - UK.OBIE.NextStatement
-      - UK.OBIE.PaymentDue
-      - UK.OBIE.PurchasePromoEnd
-      - UK.OBIE.StatementAvailable
-    OBExternalStatementFeeFrequency1Code:
-      description: How frequently the fee is applied to the Account.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.ChargingPeriod
-      - UK.OBIE.PerTransactionAmount
-      - UK.OBIE.PerTransactionPercentage
-      - UK.OBIE.Quarterly
-      - UK.OBIE.StatementMonthly
-      - UK.OBIE.Weekly
-    OBStatement2:
-      oneOf:
-      - $ref: '#/components/schemas/OBStatement2Basic'
-      - $ref: '#/components/schemas/OBStatement2Detail'
-    OBExternalStatementAmountType1Code:
-      description: Amount type, in a coded form.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.ArrearsClosingBalance
-      - UK.OBIE.AvailableBalance
-      - UK.OBIE.AverageBalanceWhenInCredit
-      - UK.OBIE.AverageBalanceWhenInDebit
-      - UK.OBIE.AverageDailyBalance
-      - UK.OBIE.BalanceTransferClosingBalance
-      - UK.OBIE.CashClosingBalance
-      - UK.OBIE.ClosingBalance
-      - UK.OBIE.CreditLimit
-      - UK.OBIE.CurrentPayment
-      - UK.OBIE.DirectDebitPaymentDue
-      - UK.OBIE.FSCSInsurance
-      - UK.OBIE.MinimumPaymentDue
-      - UK.OBIE.PendingTransactionsBalance
-      - UK.OBIE.PreviousClosingBalance
-      - UK.OBIE.PreviousPayment
-      - UK.OBIE.PurchaseClosingBalance
-      - UK.OBIE.StartingBalance
-      - UK.OBIE.TotalAdjustments
-      - UK.OBIE.TotalCashAdvances
-      - UK.OBIE.TotalCharges
-      - UK.OBIE.TotalCredits
-      - UK.OBIE.TotalDebits
-      - UK.OBIE.TotalPurchases
-    OBStatement2Basic:
-      type: object
-      description: Provides further details on a statement resource.
-      required:
-      - AccountId
-      - Type
-      - StartDateTime
-      - EndDateTime
-      - CreationDateTime
-      properties:
-        AccountId:
-          $ref: '#/components/schemas/AccountId'
-        StatementId:
-          $ref: '#/components/schemas/StatementId'
-        StatementReference:
-          $ref: '#/components/schemas/StatementReference'
-        Type:
-          $ref: '#/components/schemas/OBExternalStatementType1Code'
-        StartDateTime:
-          $ref: '#/components/schemas/StartDateTime'
-        EndDateTime:
-          $ref: '#/components/schemas/EndDateTime'
-        CreationDateTime:
-          $ref: '#/components/schemas/CreationDateTime'
-        StatementDescription:
-          type: array
-          items:
-            description: Other descriptions that may be available for the statement resource.
-            type: string
-            minLength: 1
-            maxLength: 500
-        StatementBenefit:
-          type: array
-          items:
-            type: object
-            description: Set of elements used to provide details of a benefit or reward amount for the statement resource.
-            required:
-            - Type
-            - Amount
-            properties:
-              Type:
-                $ref: '#/components/schemas/OBExternalStatementBenefitType1Code'
-              Amount:
-                $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_3'
-        StatementFee:
-          type: array
-          items:
-            type: object
-            description: Set of elements used to provide details of a fee for the statement resource.
-            required:
-            - CreditDebitIndicator
-            - Type
-            - Amount
-            properties:
-              Description:
-                $ref: '#/components/schemas/Description_1'
-              CreditDebitIndicator:
-                $ref: '#/components/schemas/OBCreditDebitCode_0'
-              Type:
-                $ref: '#/components/schemas/OBExternalStatementFeeType1Code'
-              Rate:
-                $ref: '#/components/schemas/OBRate1_0'
-              RateType:
-                $ref: '#/components/schemas/OBExternalStatementFeeRateType1Code'
-              Frequency:
-                $ref: '#/components/schemas/OBExternalStatementFeeFrequency1Code'
-              Amount:
-                $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_4'
-        StatementInterest:
-          type: array
-          items:
-            type: object
-            description: Set of elements used to provide details of a generic interest amount related to the statement resource.
-            required:
-            - CreditDebitIndicator
-            - Type
-            - Amount
-            properties:
-              Description:
-                $ref: '#/components/schemas/Description_2'
-              CreditDebitIndicator:
-                $ref: '#/components/schemas/OBCreditDebitCode_0'
-              Type:
-                $ref: '#/components/schemas/OBExternalStatementInterestType1Code'
-              Rate:
-                $ref: '#/components/schemas/OBRate1_1'
-              RateType:
-                $ref: '#/components/schemas/OBExternalStatementInterestRateType1Code'
-              Frequency:
-                $ref: '#/components/schemas/OBExternalStatementInterestFrequency1Code'
-              Amount:
-                $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_5'
-        StatementDateTime:
-          type: array
-          items:
-            type: object
-            description: Set of elements used to provide details of a generic date time for the statement resource.
-            required:
-            - DateTime
-            - Type
-            properties:
-              DateTime:
-                $ref: '#/components/schemas/DateTime'
-              Type:
-                $ref: '#/components/schemas/OBExternalStatementDateTimeType1Code'
-        StatementRate:
-          type: array
-          items:
-            type: object
-            description: Set of elements used to provide details of a generic rate related to the statement resource.
-            required:
-            - Rate
-            - Type
-            properties:
-              Rate:
-                $ref: '#/components/schemas/OBExternalStatementRateType1Code'
-              Type:
-                $ref: '#/components/schemas/Type_0'
-        StatementValue:
-          type: array
-          items:
-            type: object
-            description: Set of elements used to provide details of a generic number value related to the statement resource.
-            required:
-            - Value
-            - Type
-            properties:
-              Value:
-                $ref: '#/components/schemas/OBExternalStatementValueType1Code'
-              Type:
-                $ref: '#/components/schemas/Type_1'
-    StartDateTime:
-      description: "Date and time at which the statement period starts.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
-      type: string
-      format: date-time
-    OBExternalStatementFeeRateType1Code:
-      description: Description that may be available for the statement fee rate type.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.AER
-      - UK.OBIE.EAR
-    OBExternalStatementInterestRateType1Code:
-      description: Description that may be available for the statement Interest rate type.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.BOEBaseRate
-      - UK.OBIE.FixedRate
-      - UK.OBIE.Gross
-      - UK.OBIE.LoanProviderBaseRate
-      - UK.OBIE.Net
-    Description_2:
-      description: Description that may be available for the statement interest.
-      type: string
-      minLength: 1
-      maxLength: 128
-    ActiveOrHistoricCurrencyCode_1:
-      description: A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies and funds".
-      type: string
-      pattern: ^[A-Z]{3,3}$
-    OBError1:
-      type: object
-      properties:
-        ErrorCode:
-          description: Low level textual error code, e.g., UK.OBIE.Field.Missing
-          type: string
-          x-namespaced-enum:
-          - UK.OBIE.Field.Expected
-          - UK.OBIE.Field.Invalid
-          - UK.OBIE.Field.InvalidDate
-          - UK.OBIE.Field.Missing
-          - UK.OBIE.Field.Unexpected
-          - UK.OBIE.Header.Invalid
-          - UK.OBIE.Header.Missing
-          - UK.OBIE.Reauthenticate
-          - UK.OBIE.Resource.ConsentMismatch
-          - UK.OBIE.Resource.InvalidConsentStatus
-          - UK.OBIE.Resource.InvalidFormat
-          - UK.OBIE.Resource.NotFound
-          - UK.OBIE.Rules.AfterCutOffDateTime
-          - UK.OBIE.Rules.DuplicateReference
-          - UK.OBIE.Signature.Invalid
-          - UK.OBIE.Signature.InvalidClaim
-          - UK.OBIE.Signature.Malformed
-          - UK.OBIE.Signature.Missing
-          - UK.OBIE.Signature.MissingClaim
-          - UK.OBIE.Signature.Unexpected
-          - UK.OBIE.UnexpectedError
-          - UK.OBIE.Unsupported.AccountIdentifier
-          - UK.OBIE.Unsupported.AccountSecondaryIdentifier
-          - UK.OBIE.Unsupported.Currency
-          - UK.OBIE.Unsupported.Frequency
-          - UK.OBIE.Unsupported.LocalInstrument
-          - UK.OBIE.Unsupported.Scheme
-        Message:
-          description: 'A description of the error that occurred. e.g., ''A mandatory field isn''t supplied'' or ''RequestedExecutionDateTime must be in future''
-
-            OBIE doesn''t standardise this field'
-          type: string
-          minLength: 1
-          maxLength: 500
-        Path:
-          description: Recommended but optional reference to the JSON Path of the field with error, e.g., Data.Initiation.InstructedAmount.Currency
-          type: string
-          minLength: 1
-          maxLength: 500
-        Url:
-          description: URL to help remediate the problem, or provide more information, or to API Reference, or help etc
-          type: string
-      required:
-      - ErrorCode
-      - Message
-      additionalProperties: false
-      minProperties: 1
     DateTime:
       description: "Date and time associated with the date time type.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
       type: string
       format: date-time
-    EndDateTime:
-      description: "Date and time at which the statement period ends.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
-      type: string
-      format: date-time
-    StatementId:
-      description: Unique identifier for the statement resource within an servicing institution. This identifier is both unique and immutable.
-      type: string
-      minLength: 1
-      maxLength: 40
-    OBExternalStatementType1Code:
-      description: Statement type, in a coded form.
-      type: string
-      enum:
-      - AccountClosure
-      - AccountOpening
-      - Annual
-      - Interim
-      - RegularPeriodic
-    Type_1:
-      description: Statement value type, in a coded form.
-      type: string
-      minLength: 1
-      maxLength: 40
     OBExternalStatementValueType1Code:
       description: Value associated with the statement value type.
       type: string
@@ -821,34 +826,33 @@ components:
       - UK.OBIE.HotelPointsBalance
       - UK.OBIE.RetailShoppingPoints
       - UK.OBIE.RetailShoppingPointsBalance
-    OBRate1_0:
-      description: Rate charged for Statement Fee (where it is charged in terms of a rate rather than an amount)
-      type: number
-    StatementReference:
-      description: Unique reference for the statement. This reference may be optionally populated if available.
+    OBExternalStatementFeeFrequency1Code:
+      description: How frequently the fee is applied to the Account.
       type: string
-      minLength: 1
-      maxLength: 35
-    OBReadDataStatement2:
-      type: object
-      properties:
-        Statement:
-          type: array
-          items:
-            $ref: '#/components/schemas/OBStatement2'
+      x-namespaced-enum:
+      - UK.OBIE.ChargingPeriod
+      - UK.OBIE.PerTransactionAmount
+      - UK.OBIE.PerTransactionPercentage
+      - UK.OBIE.Quarterly
+      - UK.OBIE.StatementMonthly
+      - UK.OBIE.Weekly
   parameters:
+    ToStatementDateTimeParam:
+      in: query
+      name: toStatementDateTime
+      description: 'The UTC ISO 8601 Date Time to filter statements TO
+
+        NB Time component is optional - set to 00:00:00 for just Date.
+
+        If the Date Time contains a timezone, the ASPSP must ignore the timezone component.'
+      schema:
+        type: string
+        format: date-time
     x-fapi-customer-ip-address:
       in: header
       name: x-fapi-customer-ip-address
       required: false
       description: The PSU's IP address if the PSU is currently logged in with the TPP.
-      schema:
-        type: string
-    Authorization:
-      in: header
-      name: Authorization
-      required: true
-      description: An Authorisation Token as per https://tools.ietf.org/html/rfc6750
       schema:
         type: string
     x-fapi-auth-date:
@@ -866,10 +870,24 @@ components:
       description: An RFC4122 UID used as a correlation id.
       schema:
         type: string
-    ToStatementDateTimeParam:
+    AccountId:
+      name: AccountId
+      in: path
+      description: AccountId
+      required: true
+      schema:
+        type: string
+    Authorization:
+      in: header
+      name: Authorization
+      required: true
+      description: An Authorisation Token as per https://tools.ietf.org/html/rfc6750
+      schema:
+        type: string
+    FromStatementDateTimeParam:
       in: query
-      name: toStatementDateTime
-      description: 'The UTC ISO 8601 Date Time to filter statements TO
+      name: fromStatementDateTime
+      description: 'The UTC ISO 8601 Date Time to filter statements FROM
 
         NB Time component is optional - set to 00:00:00 for just Date.
 
@@ -884,25 +902,18 @@ components:
       required: true
       schema:
         type: string
-    AccountId:
-      name: AccountId
-      in: path
-      description: AccountId
-      required: true
-      schema:
-        type: string
-    FromStatementDateTimeParam:
-      in: query
-      name: fromStatementDateTime
-      description: 'The UTC ISO 8601 Date Time to filter statements FROM
-
-        NB Time component is optional - set to 00:00:00 for just Date.
-
-        If the Date Time contains a timezone, the ASPSP must ignore the timezone component.'
-      schema:
-        type: string
-        format: date-time
   responses:
+    200AccountsAccountIdStatementsStatementIdFileRead:
+      description: Statements Read
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/File'
     400Error:
       description: Bad request
       headers:
@@ -921,59 +932,8 @@ components:
           description: An RFC4122 UID used as a correlation id.
           schema:
             type: string
-    406Error:
-      description: Not Acceptable
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-    200AccountsAccountIdStatementsStatementIdFileRead:
-      description: Statements Read
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/File'
-    403Error:
-      description: Forbidden
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBErrorResponse1'
-    200AccountsAccountIdStatementsStatementIdRead:
-      description: Statements Read
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBReadStatement2'
-    200StatementsRead:
-      description: Statements Read
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBReadStatement2'
-    405Error:
-      description: Method Not Allowed
+    401Error:
+      description: Unauthorized
       headers:
         x-fapi-interaction-id:
           description: An RFC4122 UID used as a correlation id.
@@ -990,19 +950,8 @@ components:
           description: An RFC4122 UID used as a correlation id.
           schema:
             type: string
-    500Error:
-      description: Internal Server Error
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OBErrorResponse1'
-    401Error:
-      description: Unauthorized
+    405Error:
+      description: Method Not Allowed
       headers:
         x-fapi-interaction-id:
           description: An RFC4122 UID used as a correlation id.
@@ -1019,6 +968,57 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/OBReadStatement2'
+    403Error:
+      description: Forbidden
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBErrorResponse1'
+    200StatementsRead:
+      description: Statements Read
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBReadStatement2'
+    200AccountsAccountIdStatementsStatementIdRead:
+      description: Statements Read
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBReadStatement2'
+    406Error:
+      description: Not Acceptable
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+    500Error:
+      description: Internal Server Error
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OBErrorResponse1'
   securitySchemes:
     TPPOAuth2Security:
       type: oauth2
