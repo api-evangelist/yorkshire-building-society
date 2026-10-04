@@ -85,8 +85,8 @@ paths:
         - accounts
 components:
   responses:
-    403Error:
-      description: Forbidden
+    200AccountsAccountIdScheduledPaymentsRead:
+      description: Scheduled Payments Read
       headers:
         x-fapi-interaction-id:
           description: An RFC4122 UID used as a correlation id.
@@ -95,17 +95,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/OBErrorResponse1'
-    404Error:
-      description: Not found
+            $ref: '#/components/schemas/OBReadScheduledPayment2'
+    429Error:
+      description: Too Many Requests
       headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
+        Retry-After:
+          description: Number in seconds to wait
           schema:
-            type: string
-    405Error:
-      description: Method Not Allowed
-      headers:
+            type: integer
         x-fapi-interaction-id:
           description: An RFC4122 UID used as a correlation id.
           schema:
@@ -121,8 +118,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/OBErrorResponse1'
-    200AccountsAccountIdScheduledPaymentsRead:
-      description: Scheduled Payments Read
+    405Error:
+      description: Method Not Allowed
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
+    403Error:
+      description: Forbidden
       headers:
         x-fapi-interaction-id:
           description: An RFC4122 UID used as a correlation id.
@@ -131,14 +135,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/OBReadScheduledPayment2'
-    406Error:
-      description: Not Acceptable
-      headers:
-        x-fapi-interaction-id:
-          description: An RFC4122 UID used as a correlation id.
-          schema:
-            type: string
+            $ref: '#/components/schemas/OBErrorResponse1'
     401Error:
       description: Unauthorized
       headers:
@@ -157,6 +154,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/OBReadScheduledPayment2'
+    406Error:
+      description: Not Acceptable
+      headers:
+        x-fapi-interaction-id:
+          description: An RFC4122 UID used as a correlation id.
+          schema:
+            type: string
     400Error:
       description: Bad request
       headers:
@@ -168,41 +172,41 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/OBErrorResponse1'
-    429Error:
-      description: Too Many Requests
+    404Error:
+      description: Not found
       headers:
-        Retry-After:
-          description: Number in seconds to wait
-          schema:
-            type: integer
         x-fapi-interaction-id:
           description: An RFC4122 UID used as a correlation id.
           schema:
             type: string
   schemas:
-    Name_0:
-      description: 'The account name is the name or names of the account owner(s) represented at an account level, as displayed by the ASPSP''s online channels.
-
-        Note, the account name is not the product name or the nickname of the account.'
+    ActiveOrHistoricCurrencyCode_1:
+      description: A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies and funds".
+      type: string
+      pattern: ^[A-Z]{3,3}$
+    SecondaryIdentification:
+      description: "This is secondary identification of the account, as assigned by the account servicing institution. \nThis can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination)."
       type: string
       minLength: 1
-      maxLength: 70
-    OBReadScheduledPayment2:
+      maxLength: 34
+    OBCashAccount5_0:
       type: object
       required:
-      - Data
+      - SchemeName
+      - Identification
+      description: Provides the details to identify the beneficiary account.
       properties:
-        Data:
-          type: object
-          properties:
-            ScheduledPayment:
-              type: array
-              items:
-                $ref: '#/components/schemas/OBScheduledPayment2'
-        Links:
-          $ref: '#/components/schemas/Links'
-        Meta:
-          $ref: '#/components/schemas/Meta'
+        SchemeName:
+          $ref: '#/components/schemas/OBExternalAccountIdentification4Code'
+        Identification:
+          description: Beneficiary account identification.
+          type: string
+          minLength: 1
+          maxLength: 256
+        Name:
+          $ref: '#/components/schemas/Name_0'
+        SecondaryIdentification:
+          $ref: '#/components/schemas/SecondaryIdentification'
     OBScheduledPayment2Detail:
       type: object
       required:
@@ -228,8 +232,22 @@ components:
           $ref: '#/components/schemas/OBBranchAndFinancialInstitutionIdentification5_1'
         CreditorAccount:
           $ref: '#/components/schemas/OBCashAccount5_0'
-    ISODateTime:
-      description: "All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+    OBExternalFinancialInstitutionIdentification4Code:
+      description: Name of the identification scheme, in a coded form as published in an external list.
+      type: string
+      x-namespaced-enum:
+      - UK.OBIE.BICFI
+    OBScheduledPayment2:
+      oneOf:
+      - $ref: '#/components/schemas/OBScheduledPayment2Basic'
+      - $ref: '#/components/schemas/OBScheduledPayment2Detail'
+    AccountId:
+      description: A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
+      type: string
+      minLength: 1
+      maxLength: 40
+    ScheduledPaymentDateTime:
+      description: "The date on which the scheduled payment will be made.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
       type: string
       format: date-time
     OBError1:
@@ -286,6 +304,39 @@ components:
       - Message
       additionalProperties: false
       minProperties: 1
+    OBActiveCurrencyAndAmount_SimpleType:
+      description: A number of monetary units specified in an active currency where the unit of currency is explicit and compliant with ISO 4217.
+      type: string
+      pattern: ^\d{1,13}\.\d{1,5}$
+    Name_0:
+      description: 'The account name is the name or names of the account owner(s) represented at an account level, as displayed by the ASPSP''s online channels.
+
+        Note, the account name is not the product name or the nickname of the account.'
+      type: string
+      minLength: 1
+      maxLength: 70
+    Links:
+      type: object
+      description: Links relevant to the payload
+      properties:
+        Self:
+          type: string
+          format: uri
+        First:
+          type: string
+          format: uri
+        Prev:
+          type: string
+          format: uri
+        Next:
+          type: string
+          format: uri
+        Last:
+          type: string
+          format: uri
+      additionalProperties: false
+      required:
+      - Self
     Meta:
       title: MetaData
       type: object
@@ -299,29 +350,54 @@ components:
         LastAvailableDateTime:
           $ref: '#/components/schemas/ISODateTime'
       additionalProperties: false
-    ScheduledPaymentDateTime:
-      description: "The date on which the scheduled payment will be made.All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
-      type: string
-      format: date-time
-    AccountId:
-      description: A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
-      type: string
-      minLength: 1
-      maxLength: 40
-    ActiveOrHistoricCurrencyCode_1:
-      description: A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies and funds".
-      type: string
-      pattern: ^[A-Z]{3,3}$
-    OBExternalFinancialInstitutionIdentification4Code:
+    OBExternalAccountIdentification4Code:
       description: Name of the identification scheme, in a coded form as published in an external list.
       type: string
       x-namespaced-enum:
-      - UK.OBIE.BICFI
-    SecondaryIdentification:
-      description: "This is secondary identification of the account, as assigned by the account servicing institution. \nThis can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination)."
+      - UK.OBIE.BBAN
+      - UK.OBIE.IBAN
+      - UK.OBIE.PAN
+      - UK.OBIE.Paym
+      - UK.OBIE.SortCodeAccountNumber
+    ISODateTime:
+      description: "All dates in the JSON payloads are represented in ISO 8601 date-time format. \nAll date-time fields in responses must include the timezone. An example is below:\n2017-04-05T10:43:07+00:00"
+      type: string
+      format: date-time
+    OBExternalScheduleType1Code:
+      description: Specifies the scheduled payment date type requested
+      type: string
+      enum:
+      - Arrival
+      - Execution
+    OBScheduledPayment2Basic:
+      type: object
+      required:
+      - AccountId
+      - ScheduledPaymentDateTime
+      - ScheduledType
+      - InstructedAmount
+      properties:
+        AccountId:
+          $ref: '#/components/schemas/AccountId'
+        ScheduledPaymentId:
+          $ref: '#/components/schemas/ScheduledPaymentId'
+        ScheduledPaymentDateTime:
+          $ref: '#/components/schemas/ScheduledPaymentDateTime'
+        ScheduledType:
+          $ref: '#/components/schemas/OBExternalScheduleType1Code'
+        Reference:
+          $ref: '#/components/schemas/Reference'
+        InstructedAmount:
+          $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_9'
+    Reference:
+      description: 'Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+
+        Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+
+        If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor''s reference or payment remittance identification should be quoted in the end-to-end transaction identification.'
       type: string
       minLength: 1
-      maxLength: 34
+      maxLength: 35
     OBErrorResponse1:
       description: An array of detail error codes, and messages, and URLs to documentation to help remediation.
       type: object
@@ -351,15 +427,6 @@ components:
       - Message
       - Errors
       additionalProperties: false
-    ScheduledPaymentId:
-      description: A unique and immutable identifier used to identify the scheduled payment resource. This identifier has no meaning to the account owner.
-      type: string
-      minLength: 1
-      maxLength: 40
-    OBScheduledPayment2:
-      oneOf:
-      - $ref: '#/components/schemas/OBScheduledPayment2Basic'
-      - $ref: '#/components/schemas/OBScheduledPayment2Detail'
     OBActiveOrHistoricCurrencyAndAmount_9:
       type: object
       required:
@@ -373,6 +440,27 @@ components:
           $ref: '#/components/schemas/OBActiveCurrencyAndAmount_SimpleType'
         Currency:
           $ref: '#/components/schemas/ActiveOrHistoricCurrencyCode_1'
+    OBReadScheduledPayment2:
+      type: object
+      required:
+      - Data
+      properties:
+        Data:
+          type: object
+          properties:
+            ScheduledPayment:
+              type: array
+              items:
+                $ref: '#/components/schemas/OBScheduledPayment2'
+        Links:
+          $ref: '#/components/schemas/Links'
+        Meta:
+          $ref: '#/components/schemas/Meta'
+    Identification_1:
+      description: Unique and unambiguous identification of the servicing institution.
+      type: string
+      minLength: 1
+      maxLength: 35
     OBBranchAndFinancialInstitutionIdentification5_1:
       type: object
       required:
@@ -386,107 +474,12 @@ components:
           $ref: '#/components/schemas/OBExternalFinancialInstitutionIdentification4Code'
         Identification:
           $ref: '#/components/schemas/Identification_1'
-    OBCashAccount5_0:
-      type: object
-      required:
-      - SchemeName
-      - Identification
-      description: Provides the details to identify the beneficiary account.
-      properties:
-        SchemeName:
-          $ref: '#/components/schemas/OBExternalAccountIdentification4Code'
-        Identification:
-          description: Beneficiary account identification.
-          type: string
-          minLength: 1
-          maxLength: 256
-        Name:
-          $ref: '#/components/schemas/Name_0'
-        SecondaryIdentification:
-          $ref: '#/components/schemas/SecondaryIdentification'
-    OBActiveCurrencyAndAmount_SimpleType:
-      description: A number of monetary units specified in an active currency where the unit of currency is explicit and compliant with ISO 4217.
-      type: string
-      pattern: ^\d{1,13}\.\d{1,5}$
-    OBExternalAccountIdentification4Code:
-      description: Name of the identification scheme, in a coded form as published in an external list.
-      type: string
-      x-namespaced-enum:
-      - UK.OBIE.BBAN
-      - UK.OBIE.IBAN
-      - UK.OBIE.PAN
-      - UK.OBIE.Paym
-      - UK.OBIE.SortCodeAccountNumber
-    Identification_1:
-      description: Unique and unambiguous identification of the servicing institution.
+    ScheduledPaymentId:
+      description: A unique and immutable identifier used to identify the scheduled payment resource. This identifier has no meaning to the account owner.
       type: string
       minLength: 1
-      maxLength: 35
-    OBExternalScheduleType1Code:
-      description: Specifies the scheduled payment date type requested
-      type: string
-      enum:
-      - Arrival
-      - Execution
-    Links:
-      type: object
-      description: Links relevant to the payload
-      properties:
-        Self:
-          type: string
-          format: uri
-        First:
-          type: string
-          format: uri
-        Prev:
-          type: string
-          format: uri
-        Next:
-          type: string
-          format: uri
-        Last:
-          type: string
-          format: uri
-      additionalProperties: false
-      required:
-      - Self
-    Reference:
-      description: 'Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
-
-        Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
-
-        If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor''s reference or payment remittance identification should be quoted in the end-to-end transaction identification.'
-      type: string
-      minLength: 1
-      maxLength: 35
-    OBScheduledPayment2Basic:
-      type: object
-      required:
-      - AccountId
-      - ScheduledPaymentDateTime
-      - ScheduledType
-      - InstructedAmount
-      properties:
-        AccountId:
-          $ref: '#/components/schemas/AccountId'
-        ScheduledPaymentId:
-          $ref: '#/components/schemas/ScheduledPaymentId'
-        ScheduledPaymentDateTime:
-          $ref: '#/components/schemas/ScheduledPaymentDateTime'
-        ScheduledType:
-          $ref: '#/components/schemas/OBExternalScheduleType1Code'
-        Reference:
-          $ref: '#/components/schemas/Reference'
-        InstructedAmount:
-          $ref: '#/components/schemas/OBActiveOrHistoricCurrencyAndAmount_9'
+      maxLength: 40
   parameters:
-    Authorization:
-      in: header
-      name: Authorization
-      required: true
-      description: An Authorisation Token as per https://tools.ietf.org/html/rfc6750
-      schema:
-        type: string
     AccountId:
       name: AccountId
       in: path
@@ -494,6 +487,21 @@ components:
       required: true
       schema:
         type: string
+    Authorization:
+      in: header
+      name: Authorization
+      required: true
+      description: An Authorisation Token as per https://tools.ietf.org/html/rfc6750
+      schema:
+        type: string
+    x-fapi-auth-date:
+      in: header
+      name: x-fapi-auth-date
+      required: false
+      description: "The time when the PSU last logged in with the TPP. \nAll dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below: \nSun, 10 Sep 2017 19:43:31 UTC"
+      schema:
+        type: string
+        pattern: ^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4} \d{2}:\d{2}:\d{2} (GMT|UTC)$
     x-fapi-customer-ip-address:
       in: header
       name: x-fapi-customer-ip-address
@@ -508,14 +516,6 @@ components:
       description: An RFC4122 UID used as a correlation id.
       schema:
         type: string
-    x-fapi-auth-date:
-      in: header
-      name: x-fapi-auth-date
-      required: false
-      description: "The time when the PSU last logged in with the TPP. \nAll dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below: \nSun, 10 Sep 2017 19:43:31 UTC"
-      schema:
-        type: string
-        pattern: ^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4} \d{2}:\d{2}:\d{2} (GMT|UTC)$
   securitySchemes:
     TPPOAuth2Security:
       type: oauth2
